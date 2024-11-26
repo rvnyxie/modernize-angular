@@ -1,0 +1,20 @@
+// Bootstrap Core SCSS Files
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/bootstrap";
+
+// Abstracts (Project-Specific Foundations)
+@import "abstracts/variables";       // Custom variables
+@import "abstracts/mixin";           // Custom mixins
+@import "abstracts/theme-variable";  // Custom theme variables
+
+// Base Styles
+@import "base/reset";   // Reset styles
+@import "base/global";  // Global styles
+
+// Vendors
+@import "vendors/bootstrap-custom";  // Custom Bootstrap overrides
+
+// Icons and Auxiliary Files
+@import "icons/tabler-icons/tabler-icons.css"; // Icon styles
