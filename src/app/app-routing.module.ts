@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from "./auth/login/login.component";
 import {LayoutComponent} from "./layout/layout.component";
 import {ProductsComponent} from "./pages/products/products.component";
+import {ProfileComponent} from "./pages/profile/profile.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -10,7 +11,9 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: 'products', component: ProductsComponent }
+      { path: 'products', component: ProductsComponent },
+      { path: 'me', component: ProfileComponent },
+      { path: '', redirectTo: '', pathMatch: 'full'}
     ]
   },
   { path: '**', redirectTo: '/login' }
