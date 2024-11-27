@@ -1,6 +1,24 @@
-<ord-header></ord-header>
-<ord-sidebar></ord-sidebar>
-<main class="content">
-  <router-outlet></router-outlet>
-</main>
-<ord-footer></ord-footer>
+<body>
+<!--  Body Wrapper -->
+  <div
+    class="page-wrapper"
+    id="main-wrapper"
+    [attr.data-layout]="layoutType"
+    [attr.data-navbarbg]="'skin6'"
+    [attr.data-sidebartype]="sidebarType"
+    [attr.data-sidebar-position]="sidebarPosition"
+    [attr.data-header-position]="headerPosition"
+  >
+    <ord-sidebar [isSidebarVisible]="isSidebarVisible" [sidebarType]="sidebarType"></ord-sidebar>
+
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <ord-header></ord-header>
+      <main class="content">
+        <router-outlet></router-outlet>
+      </main>
+      <ord-footer></ord-footer>
+      <button (click)="toggleSidebar()">Toggle Sidebar</button>
+    </div>
+  </div>
+</body>

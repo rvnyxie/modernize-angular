@@ -41,7 +41,9 @@
               "src/styles/main.scss"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+              "src/assets/js/app.min.js",
+              "src/assets/js/sidebarmenu.js"
             ]
           },
           "configurations": {

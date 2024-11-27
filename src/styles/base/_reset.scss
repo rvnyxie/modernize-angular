@@ -38,3 +38,34 @@ h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
 }
+
+/* Other reset CSS */
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: $primary;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+:focus {
+  outline: 0;
+  box-shadow: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.calendar-events {
+  cursor: move;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}

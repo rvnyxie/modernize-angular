@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
+
+import $ from 'jquery';
 
 @Component({
   selector: 'ord-sidebar',
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-
+  @Input() isSidebarVisible: boolean = false;
+  @Input() sidebarType: string = 'full';
 }
