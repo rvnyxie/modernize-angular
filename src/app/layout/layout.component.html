@@ -1,5 +1,5 @@
-<body>
-<!--  Body Wrapper -->
+<div *ngIf="!isLoginPage">
+  <!--  Body Wrapper -->
   <div
     class="page-wrapper"
     id="main-wrapper"
@@ -18,7 +18,9 @@
         <router-outlet></router-outlet>
       </main>
       <ord-footer></ord-footer>
-      <button (click)="toggleSidebar()">Toggle Sidebar</button>
     </div>
   </div>
-</body>
+</div>
+
+<!-- Only show login page without layout elements -->
+<router-outlet></router-outlet>
