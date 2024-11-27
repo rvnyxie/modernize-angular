@@ -23,4 +23,6 @@
 </div>
 
 <!-- Only show login page without layout elements -->
-<router-outlet></router-outlet>
+<div *ngIf="isLoginPage">
+  <router-outlet></router-outlet>
+</div>

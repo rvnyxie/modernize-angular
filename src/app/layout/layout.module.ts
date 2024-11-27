@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterOutlet} from "@angular/router";
+import { RouterLink, RouterOutlet } from "@angular/router";
 
 import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,9 +17,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   exports: [
     LayoutComponent
   ],
-  imports: [
-    CommonModule,
-    RouterOutlet
-  ]
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        RouterLink
+    ]
 })
 export class LayoutModule { }
