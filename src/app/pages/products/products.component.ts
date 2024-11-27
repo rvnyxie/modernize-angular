@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Product} from "../../models/product.model";
+import {ProductsService} from "./products.service";
 
 @Component({
   selector: 'ord-products',
@@ -6,13 +8,57 @@ import {Component, OnInit} from '@angular/core';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
-  products = [
-    { name: 'Product 1', description: 'Description of Product 1', price: 100 },
-    { name: 'Product 2', description: 'Description of Product 2', price: 200 },
-    { name: 'Product 3', description: 'Description of Product 3', price: 300 }
-  ];
+  products: Product[] = [];
+  selectedProduct: Product | null = null;
 
-  constructor() {}
+  defaultNewProduct: Product = {
+    id: Math.floor(Math.random() * 1000),
+    code: '',
+    name: '',
+    category: '',
+    soldUnit: 0,
+    inStock: 0,
+    expiryDate: new Date('2025-12-31')
+  };
+  newProduct: Product = this.defaultNewProduct;
+  isAddingProduct: boolean = false;
 
-  ngOnInit(): void {}
+  constructor(private productService: ProductsService) {}
+
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.products = this.productService.getAllProducts();
+  }
+
+  onAddProduct(): void {
+    if (this.newProduct) {
+      // Format submitted expiry date
+      this.newProduct.expiryDate = new Date(this.newProduct.expiryDate);
+
+      this.productService.addProduct(this.newProduct);
+      this.newProduct = this.defaultNewProduct;
+      this.isAddingProduct = false
+      this.loadProducts();
+    }
+  }
+
+  onEditProduct(product: Product) {
+    this.selectedProduct = { ...product }; // Clone product
+  }
+
+  onUpdateProduct(): void {
+    if (this.selectedProduct) {
+      this.productService.updateProduct(this.selectedProduct);
+      this.selectedProduct = null;
+      this.loadProducts();
+    }
+  }
+
+  onDeleteProduct(id: number): void {
+    this.productService.deleteProduct(id);
+    this.loadProducts();
+  }
 }

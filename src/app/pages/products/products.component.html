@@ -1,10 +1,137 @@
-<div class="product-page">
-  <h1>Products</h1>
-  <div class="product-list">
-    <div class="product-card" *ngFor="let product of products">
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
-      <span>Price: {{ product.price | currency }}</span>
-    </div>
+<div class="container">
+  <h2>Product Management</h2>
+
+  <!-- Product List -->
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Sold Unit</th>
+      <th>In Stock</th>
+      <th>Expiry Date</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.soldUnit }}</td>
+      <td>{{ product.inStock }}</td>
+      <td>{{ product.expiryDate.toISOString().split('T')[0] }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" (click)="onEditProduct(product)">Edit</button>
+        <button class="btn btn-danger btn-sm" (click)="onDeleteProduct(product.id)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Add Product -->
+  <button class="btn btn-success" (click)="isAddingProduct = true">Add Product</button>
+  <div *ngIf="isAddingProduct">
+    <h3>Add Product</h3>
+    <form (ngSubmit)="onAddProduct()">
+      <div class="form-group">
+        <label for="newProductName">Name</label>
+        <input
+          type="text"
+          id="newProductName"
+          [(ngModel)]="newProduct.name"
+          name="name"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="newProductCategory">Category</label>
+        <input
+          type="text"
+          id="newProductCategory"
+          [(ngModel)]="newProduct.category"
+          name="category"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="newProductInStock">In Stock</label>
+        <input
+          id="newProductInStock"
+          [(ngModel)]="newProduct.inStock"
+          name="Sold units"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="newProductExpiryDate">Expiry Date</label>
+        <input
+          type="date"
+          id="newProductExpiryDate"
+          [(ngModel)]="newProduct.expiryDate"
+          name="expiryDate"
+          class="form-control"
+          required
+        />
+      </div>
+      <button class="btn btn-primary" type="submit">Add Product</button>
+      <button class="btn btn-secondary" type="button" (click)="isAddingProduct = false">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Edit Product Form -->
+  <div *ngIf="selectedProduct">
+    <h3>Edit Product</h3>
+    <form (ngSubmit)="onUpdateProduct()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="selectedProduct.name"
+          name="name"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="price">Category</label>
+        <input
+          type="text"
+          id="category"
+          [(ngModel)]="selectedProduct.category"
+          name="category"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="soldUnit">Sold Unit</label>
+        <input
+          id="soldUnit"
+          [(ngModel)]="selectedProduct.soldUnit"
+          name="Sold units"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date</label>
+        <input
+          type="date"
+          id="expiryDate"
+          [(ngModel)]="selectedProduct.expiryDate.toISOString().split('T')[0]"
+          name="expiryDate"
+          class="form-control"
+          required
+        />
+      </div>
+      <button class="btn btn-primary" type="submit">Update Product</button>
+      <button class="btn btn-secondary" type="button" (click)="selectedProduct = null">Cancel</button>
+    </form>
   </div>
 </div>
