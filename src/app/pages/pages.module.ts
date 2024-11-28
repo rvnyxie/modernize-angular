@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { ProductsComponent } from "./products/products.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { ProductFormComponent } from './products/product-form/product-form.component';
+import {ProductsModule} from "./products/products.module";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ProductFormComponent } from './products/product-form/product-form.compo
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ProductsModule
   ]
 })
 export class PagesModule { }

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Product} from "../../models/product.model";
-import {ProductsService} from "./products.service";
+import { Component, OnInit } from '@angular/core';
+import { Product } from "../../models/product.model";
+import { ProductsService } from "./products.service";
 
 @Component({
   selector: 'ord-products',

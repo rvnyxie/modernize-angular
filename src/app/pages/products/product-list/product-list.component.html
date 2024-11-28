@@ -1,0 +1,28 @@
+<!-- Product List -->
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Sold Unit</th>
+    <th>In Stock</th>
+    <th>Expiry Date</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products">
+    <td>{{ product.id }}</td>
+    <td>{{ product.name }}</td>
+    <td>{{ product.category }}</td>
+    <td>{{ product.soldUnit }}</td>
+    <td>{{ product.inStock }}</td>
+    <td>{{ product.expiryDate.toISOString().split('T')[0] }}</td>
+    <td>
+      <button class="btn btn-primary btn-sm" (click)="onEdit.emit(product)">Edit</button>
+      <button class="btn btn-danger btn-sm" (click)="onDelete.emit(product.id)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
