@@ -23,115 +23,63 @@
       <td>{{ product.inStock }}</td>
       <td>{{ product.expiryDate.toISOString().split('T')[0] }}</td>
       <td>
-        <button class="btn btn-primary btn-sm" (click)="onEditProduct(product)">Edit</button>
+        <button class="btn btn-primary btn-sm" (click)="onStartEditingProduct(product)">Edit</button>
         <button class="btn btn-danger btn-sm" (click)="onDeleteProduct(product.id)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
+  <button class="btn btn-success" (click)="onStartAddingProduct()">Add Product</button>
 
-  <!-- Add Product -->
-  <button class="btn btn-success" (click)="isAddingProduct = true">Add Product</button>
-  <div *ngIf="isAddingProduct">
-    <h3>Add Product</h3>
-    <form (ngSubmit)="onAddProduct()">
+  <!-- Product Adding and Editing Form -->
+  <div *ngIf="formProduct">
+    <h3>{{ isEditing ? "Edit Product" : "Add Product" }}</h3>
+    <form (ngSubmit)="isEditing ? onUpdateProduct() : onAddProduct()">
       <div class="form-group">
-        <label for="newProductName">Name</label>
+        <label for="formProductName">Name</label>
         <input
           type="text"
-          id="newProductName"
-          [(ngModel)]="newProduct.name"
+          id="formProductName"
+          [(ngModel)]="formProduct.name"
           name="name"
           class="form-control"
           required
         />
       </div>
       <div class="form-group">
-        <label for="newProductCategory">Category</label>
+        <label for="formProductCategory">Category</label>
         <input
           type="text"
-          id="newProductCategory"
-          [(ngModel)]="newProduct.category"
+          id="formProductCategory"
+          [(ngModel)]="formProduct.category"
           name="category"
           class="form-control"
           required
         />
       </div>
       <div class="form-group">
-        <label for="newProductInStock">In Stock</label>
+        <label for="formProductInStock">In Stock</label>
         <input
-          id="newProductInStock"
-          [(ngModel)]="newProduct.inStock"
+          id="formProductInStock"
+          [(ngModel)]="formProduct.inStock"
           name="Sold units"
           class="form-control"
           required
         />
       </div>
       <div class="form-group">
-        <label for="newProductExpiryDate">Expiry Date</label>
+        <label for="formProductExpiryDate">Expiry Date</label>
         <input
           type="date"
-          id="newProductExpiryDate"
-          [(ngModel)]="newProduct.expiryDate"
+          id="formProductExpiryDate"
+          [(ngModel)]="formProduct.expiryDate.toISOString().split('T')[0]"
           name="expiryDate"
           class="form-control"
           required
         />
       </div>
-      <button class="btn btn-primary" type="submit">Add Product</button>
-      <button class="btn btn-secondary" type="button" (click)="isAddingProduct = false">Cancel</button>
-    </form>
-  </div>
-
-  <!-- Edit Product Form -->
-  <div *ngIf="selectedProduct">
-    <h3>Edit Product</h3>
-    <form (ngSubmit)="onUpdateProduct()">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          [(ngModel)]="selectedProduct.name"
-          name="name"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="price">Category</label>
-        <input
-          type="text"
-          id="category"
-          [(ngModel)]="selectedProduct.category"
-          name="category"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="soldUnit">Sold Unit</label>
-        <input
-          id="soldUnit"
-          [(ngModel)]="selectedProduct.soldUnit"
-          name="Sold units"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="expiryDate">Expiry Date</label>
-        <input
-          type="date"
-          id="expiryDate"
-          [(ngModel)]="selectedProduct.expiryDate.toISOString().split('T')[0]"
-          name="expiryDate"
-          class="form-control"
-          required
-        />
-      </div>
-      <button class="btn btn-primary" type="submit">Update Product</button>
-      <button class="btn btn-secondary" type="button" (click)="selectedProduct = null">Cancel</button>
+      <button class="btn btn-primary" type="submit">{{ isEditing ? "Edit" : "Update" }}</button>
+      <button class="btn btn-secondary" type="button" (click)="hideAndResetForm()">Cancel</button>
     </form>
   </div>
 </div>
