@@ -14,10 +14,18 @@
     (cancel)="hideAndResetForm()"
   ></ord-product-form>
 
-  <!-- Product List -->
-  <ord-product-list
-    [products]="products"
-    (onEdit)="onStartEditingProduct($event)"
-    (onDelete)="onDeleteProduct($event)"
-  ></ord-product-list>
+  <div class="product-tables">
+    <!-- Product List -->
+    <ord-product-list
+      [products]="products"
+      (onEdit)="onStartEditingProduct($event)"
+      (onDelete)="onDeleteProduct($event)"
+    ></ord-product-list>
+
+    <!-- Product Category -->
+    <ord-product-category
+      [productCategories]="productCategories()"
+      (productCategoryOnDelete)="onDeleteProductCategory($event)"
+    ></ord-product-category>
+  </div>
 </div>

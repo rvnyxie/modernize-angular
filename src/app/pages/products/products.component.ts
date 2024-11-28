@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { Product } from "../../models/product.model";
 import { ProductsService } from "./products.service";
 
@@ -17,10 +17,19 @@ export class ProductsComponent implements OnInit {
     inStock: 0,
     expiryDate: new Date(Date.now())
   };
-  products: Product[] = [];
+  products: WritableSignal<Product[]> = signal<Product[]>([]);
   formProduct: Product | null = null
 
   isEditing: boolean = false;
+
+  /**
+   * Product categories computed from products
+   */
+  productCategories: Signal<String[]> = computed(() =>
+      this.products()
+        .map(product => product.category)
+        .filter((category, index, categories) => categories.indexOf(category) === index)
+  )
 
   constructor(private productService: ProductsService) {}
 
@@ -35,7 +44,8 @@ export class ProductsComponent implements OnInit {
    * Get products to display
    */
   loadProducts(): void {
-    this.products = this.productService.getAllProducts();
+    const newProducts = this.productService.getAllProducts();
+    this.products.set(newProducts);
   }
 
   /**
@@ -62,6 +72,11 @@ export class ProductsComponent implements OnInit {
    */
   onDeleteProduct(id: number): void {
     this.productService.deleteProduct(id);
+    this.loadProducts();
+  }
+
+  onDeleteProductCategory(productCategory: String): void {
+    this.productService.deleteProductCategory(productCategory);
     this.loadProducts();
   }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal, WritableSignal } from '@angular/core';
 import { Product } from "../../../models/product.model";
 
 @Component({
@@ -7,7 +7,7 @@ import { Product } from "../../../models/product.model";
   styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent {
-  @Input() products: Product[] = [];
+  @Input() products: WritableSignal<Product[]> = signal<Product[]>([]);
   @Output() onEdit: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() onDelete: EventEmitter<number> = new EventEmitter<number>();
 }

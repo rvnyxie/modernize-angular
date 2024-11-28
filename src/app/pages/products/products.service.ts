@@ -123,4 +123,11 @@ export class ProductsService {
   deleteProduct(id: number) {
     this.products = this.products.filter(product => product.id !== id);
   }
+
+  deleteProductCategory(productCategory: String) {
+    this.products = this.products.filter(
+      product => product.category !== productCategory
+    );
+    console.log(this.products);
+  }
 }

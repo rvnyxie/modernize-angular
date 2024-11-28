@@ -1,0 +1,29 @@
+<!-- Product Category Table -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let productCategory of productCategories">
+      <td>{{ productCategory }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" (click)="onStartEditingProductCategory(productCategory)">Edit</button>
+        <button class="btn btn-danger btn-sm" (click)="onDeleteProductCategory(productCategory)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-success" (click)="onStartAddingProductCategory()">Add Category</button>
+
+<!-- Product Category Action Form -->
+<div *ngIf="productCategory">
+  <ord-product-category-form
+    [productCategory]="productCategory"
+    [isProductCategoryEditing]="isProductCategoryEditing"
+    (productCategoryFormSubmit)="onProductCategoryFormSubmit()"
+    (productCategoryFormCancel)="onProductCategoryFormCancel()"
+  ></ord-product-category-form>
+</div>
