@@ -4,11 +4,13 @@ import { FormsModule } from "@angular/forms";
 
 import { ProductsComponent } from "./products/products.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { ProductFormComponent } from './products/product-form/product-form.component';
 
 @NgModule({
   declarations: [
     ProductsComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProductFormComponent
   ],
   imports: [
     CommonModule,

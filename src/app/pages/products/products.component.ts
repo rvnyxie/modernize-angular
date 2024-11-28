@@ -41,27 +41,19 @@ export class ProductsComponent implements OnInit {
   /**
    * Add a product
    */
-  onAddProduct(): void {
-    if (this.formProduct) {
-      // Format submitted expiry date
-      this.formProduct.expiryDate = new Date(this.formProduct.expiryDate);
-
-      this.productService.addProduct(this.formProduct);
-      this.formProduct = this.defaultNewProduct;
-      this.hideAndResetForm();
-      this.loadProducts();
-    }
+  onAddProduct(product: Product): void {
+    this.productService.addProduct(product);
+    this.hideAndResetForm();
+    this.loadProducts();
   }
 
   /**
    * Update a product
    */
-  onUpdateProduct(): void {
-    if (this.formProduct) {
-      this.productService.updateProduct(this.formProduct);
-      this.hideAndResetForm();
-      this.loadProducts();
-    }
+  onUpdateProduct(product: Product): void {
+    this.productService.updateProduct(product);
+    this.hideAndResetForm();
+    this.loadProducts();
   }
 
   /**

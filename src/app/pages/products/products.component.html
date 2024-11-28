@@ -1,5 +1,18 @@
+<!-- Products Component -->
 <div class="container">
   <h2>Product Management</h2>
+
+  <!-- Add Product Button -->
+  <button class="btn btn-success" (click)="onStartAddingProduct()">Add Product</button>
+
+  <!-- Product Action Form -->
+  <ord-product-form
+    *ngIf="formProduct"
+    [product]="formProduct"
+    [isEditing]="isEditing"
+    (formSubmit)="isEditing ? onUpdateProduct($event) : onAddProduct($event)"
+    (cancel)="hideAndResetForm()"
+  ></ord-product-form>
 
   <!-- Product List -->
   <table class="table">
@@ -29,57 +42,4 @@
     </tr>
     </tbody>
   </table>
-  <button class="btn btn-success" (click)="onStartAddingProduct()">Add Product</button>
-
-  <!-- Product Adding and Editing Form -->
-  <div *ngIf="formProduct">
-    <h3>{{ isEditing ? "Edit Product" : "Add Product" }}</h3>
-    <form (ngSubmit)="isEditing ? onUpdateProduct() : onAddProduct()">
-      <div class="form-group">
-        <label for="formProductName">Name</label>
-        <input
-          type="text"
-          id="formProductName"
-          [(ngModel)]="formProduct.name"
-          name="name"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="formProductCategory">Category</label>
-        <input
-          type="text"
-          id="formProductCategory"
-          [(ngModel)]="formProduct.category"
-          name="category"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="formProductInStock">In Stock</label>
-        <input
-          id="formProductInStock"
-          [(ngModel)]="formProduct.inStock"
-          name="Sold units"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="formProductExpiryDate">Expiry Date</label>
-        <input
-          type="date"
-          id="formProductExpiryDate"
-          [(ngModel)]="formProduct.expiryDate.toISOString().split('T')[0]"
-          name="expiryDate"
-          class="form-control"
-          required
-        />
-      </div>
-      <button class="btn btn-primary" type="submit">{{ isEditing ? "Edit" : "Update" }}</button>
-      <button class="btn btn-secondary" type="button" (click)="hideAndResetForm()">Cancel</button>
-    </form>
-  </div>
 </div>
