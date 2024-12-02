@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {LoginClientService} from "./client/login-client.service";
 import {Router} from "@angular/router";
+import { AuthService } from "../auth.service";
 
 @Component({
   selector: 'ord-login',
@@ -13,6 +14,7 @@ export class LoginComponent {
 
   constructor(private formBuilder: FormBuilder,
               private loginClient: LoginClientService,
+              private authService: AuthService,
               private router: Router) {
   }
 
@@ -29,10 +31,13 @@ export class LoginComponent {
 
     if (username && password) {
       this.loginClient.login(username, password).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           console.log('Login successfully', response);
           this.errorMessage = null;
-          this.router.navigate(['/dashboard']).then(r => {});
+          const { access_token } = response;
+
+          this.authService.setAccessToken(access_token);
+          this.router.navigate(['/dashboard']).then();
         },
         error: (err) => {
           console.error('Login failed:', err);
