@@ -9,5 +9,7 @@ import $ from 'jquery';
 })
 export class SidebarComponent {
   @Input() isSidebarVisible: boolean = false;
-  @Input() sidebarType: string = 'full';
+  @Input() isXXLScreen: boolean = false;
+
+  toggleSidebar() {}
 }
