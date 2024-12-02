@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class LoginClientService {
+export class LoginClient {
   private apiUrl: string = 'http://test.nghiencuukhoahoc.com.vn/api/app/account/login';
 
   constructor(private httpClient: HttpClient) {}

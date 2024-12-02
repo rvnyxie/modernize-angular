@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class LogoutClientService {
+export class LogoutClient {
   private apiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/app/account/logout'
 
   constructor(private httpClient: HttpClient) { }

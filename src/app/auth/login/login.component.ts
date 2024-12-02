@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {LoginClientService} from "./client/login-client.service";
+import {LoginClient} from "./client/login.client";
 import {Router} from "@angular/router";
 import { AuthService } from "../auth.service";
 
@@ -13,7 +13,7 @@ export class LoginComponent {
   errorMessage: string | null = null;
 
   constructor(private formBuilder: FormBuilder,
-              private loginClient: LoginClientService,
+              private loginClient: LoginClient,
               private authService: AuthService,
               private router: Router) {
   }
