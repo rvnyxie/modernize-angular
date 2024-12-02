@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { ProductsComponent } from "./products/products.component";
 import { ProfileComponent } from "./profile/profile.component";
@@ -18,7 +18,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     CommonModule,
     FormsModule,
-    ProductsModule
+    ProductsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

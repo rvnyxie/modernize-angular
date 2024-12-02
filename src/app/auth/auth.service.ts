@@ -32,4 +32,13 @@ export class AuthService {
     this._accessToken = null;
     localStorage.removeItem('accessToken');
   }
+
+  /**
+   * Check if access token existed
+   */
+  checkIfAccessTokenExisted() {
+    if (!this.getAccessToken()) {
+      throw new Error('Access Token Not Exist');
+    }
+  }
 }
