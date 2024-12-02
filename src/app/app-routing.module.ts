@@ -5,9 +5,10 @@ import {LayoutComponent} from "./layout/layout.component";
 import {ProductsComponent} from "./pages/products/products.component";
 import {ProfileComponent} from "./pages/profile/profile.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
+import { authGuard } from "./auth/auth.guard";
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [authGuard] },
   {
     path: '',
     component: LayoutComponent,
@@ -15,8 +16,8 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'me', component: ProfileComponent },
-      { path: '**', redirectTo: 'dashboard', pathMatch: 'full'}
-    ]
+    ],
+    canActivate: [authGuard]
   },
   { path: '**', redirectTo: '/login' }
 ];

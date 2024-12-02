@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   private _accessToken: string | null = '';
+  private isAuthenticated: boolean = false;
 
   constructor() {}
 
@@ -40,5 +41,15 @@ export class AuthService {
     if (!this.getAccessToken()) {
       throw new Error('Access Token Not Exist');
     }
+  }
+
+  /**
+   * Check if user logged in
+   * @returns true if logged in, false if not
+   */
+  isLoggedIn() {
+    const token = this.getAccessToken();
+    this.isAuthenticated = !!token;
+    return this.isAuthenticated;
   }
 }
