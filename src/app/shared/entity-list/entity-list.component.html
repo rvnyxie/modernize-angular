@@ -1,49 +1,88 @@
 <!-- Entity List -->
 <div class="entity-list">
-  <!-- Search bar -->
-  <h2>Thông tin tìm kiếm</h2>
-  <div class="search-bar">
-    <!-- Search Inputs -->
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      placeholder="Search {{ entityName }}"
-      (input)="onSearch()"
-    >
-    <!-- More input here -->
+  <!-- Search Bar Container -->
+  <div class="search-bar-container">
+    <h2>Thông tin tìm kiếm</h2>
+    <div class="search-bar">
+      <!-- Search Inputs -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <label for="searchInput">Từ khóa tìm kiếm</label>
+          <input
+            id="searchInput"
+            type="text"
+            class="form-control"
+            [(ngModel)]="searchTerm"
+            placeholder="Nhập mã, tên để tìm kiếm"
+            (input)="onSearch()"
+          >
+        </div>
+        <div class="input-wrapper">
+          <label for="provinceSearch">Tỉnh, thành phố</label>
+          <input
+            id="provinceSearch"
+            type="text"
+            class="form-control"
+            [(ngModel)]="searchTerm"
+            placeholder="Chọn tỉnh, thành phố"
+            (input)="onSearch()"
+          >
+        </div>
+        <div class="input-wrapper">
+          <label for="districtSearch">Quận, huyện</label>
+          <input
+            id="districtSearch"
+            type="text"
+            class="form-control"
+            [(ngModel)]="searchTerm"
+            placeholder="Chọn quận, huyện"
+            (input)="onSearch()"
+          >
+        </div>
+      </div>
 
-    <!-- Search Button Group -->
-    <div class="search-btn-group">
-      <button class="btn btn-outline-dark">
-        <i class="ti ti-reload"></i>
-        <span>Reset</span>
-      </button>
-      <button class="btn btn-primary">
-        <i class="ti ti-search"></i>
-        <span>Search</span>
-      </button>
+      <!-- Search Button Group -->
+      <div class="search-btn-group">
+        <button class="btn btn-outline-dark">
+          <span>
+            <i class="ti ti-reload"></i>
+          </span>
+          <span>Reset</span>
+        </button>
+        <button class="btn btn-primary">
+          <span>
+            <i class="ti ti-search"></i>
+          </span>
+          <span>Search</span>
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- Table -->
-  <h2>{{ entityName }}</h2>
+  <hr>
+
+  <!-- Table Container -->
   <div class="table-container">
-    <table>
-      <thead>
+    <h2>{{ entityName }}</h2>
+
+    <!-- Table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
         <tr>
           <th>STT</th>
           <th *ngFor="let column of columns">{{ column.header }}</th>
           <th>Thao tác</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr *ngFor="let row of data; let i = index">
           <td class="num-order">{{ i+1 }}</td>
           <td *ngFor="let column of columns">
             <ng-container *ngIf="column.type === 'icon'; else textContent">
               <i
-                [ngClass]="row[column.field] ? 'ti ti-circle-check' : 'ti ti-circle-x'"
-                [style.color]="row[column.field] ? 'green' : 'red'"
+                [ngClass]="row[column.field] ? 'ti ti-circle-check-filled' : 'ti ti-circle-x-filled'"
+                [style.color]="row[column.field] ? 'rgb(56,158,56)' : 'rgb(241, 56, 56)'"
               ></i>
             </ng-container>
             <ng-template #textContent>
@@ -61,7 +100,8 @@
             </div>
           </td>
         </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

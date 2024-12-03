@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { columnConfig } from "../column-config";
 
 @Component({
   selector: 'ord-provinces',
@@ -6,9 +7,27 @@ import { Component } from '@angular/core';
   styleUrl: './provinces.component.scss'
 })
 export class ProvincesComponent {
-  columns = ['id', 'name', 'region'];
+  columns = columnConfig.province;
   data = [
-    { id: 1, name: "Province 1", region: "Canada" },
-    { id: 2, name: "Province 2", region: "Canada" },
+    {
+      "id": 90,
+      "vungMien": null,
+      "vungDiaLy": null,
+      "maTinh": "99",
+      "tenTinh": "Tỉnh 101",
+      "cap": "Thành phố trung ương",
+      "isActive": false,
+      "vungSinhThai": null
+    },
+    {
+      "id": 62,
+      "vungMien": null,
+      "vungDiaLy": null,
+      "maTinh": "95",
+      "tenTinh": "Bạc Liêu",
+      "cap": "Tỉnh",
+      "isActive": true,
+      "vungSinhThai": null
+    }
   ]
 }
