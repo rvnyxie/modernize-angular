@@ -1,33 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { columnConfig } from "../column-config";
+import { ProvincesClient } from "./client/provinces.client";
+import { Province } from "./model/province.model";
 
 @Component({
   selector: 'ord-provinces',
   templateUrl: './provinces.component.html',
   styleUrl: './provinces.component.scss'
 })
-export class ProvincesComponent {
+export class ProvincesComponent implements OnInit {
   columns = columnConfig.province;
-  data = [
-    {
-      "id": 90,
-      "vungMien": null,
-      "vungDiaLy": null,
-      "maTinh": "99",
-      "tenTinh": "Tỉnh 101",
-      "cap": "Thành phố trung ương",
-      "isActive": false,
-      "vungSinhThai": null
-    },
-    {
-      "id": 62,
-      "vungMien": null,
-      "vungDiaLy": null,
-      "maTinh": "95",
-      "tenTinh": "Bạc Liêu",
-      "cap": "Tỉnh",
-      "isActive": true,
-      "vungSinhThai": null
-    }
-  ]
+  data: any[] = [];
+
+  constructor(private provincesClient: ProvincesClient) {
+  }
+
+  ngOnInit() {
+    this.loadProvinces();
+  }
+
+  /**
+   * Get list of provinces
+   */
+  loadProvinces() {
+    this.provincesClient.getProvinces().subscribe({
+      next: (response: any) => {
+        this.data = response.items;
+      },
+      error: (err) => {
+        console.error("Failed to load Provinces", err);
+      }
+    })
+  }
+
+  /**
+   * Delete a row of province
+   * @param rowToDelete Row to delete
+   */
+  deleteProvince(rowToDelete: Province) {
+    this.provincesClient.deleteProvinceById(rowToDelete.id).subscribe({
+      next: (response) => {
+        alert("District deleted successfully");
+      },
+      error: (err) => {
+        console.error("Failed to delete Province: ", rowToDelete);
+      }
+    })
+  }
 }
