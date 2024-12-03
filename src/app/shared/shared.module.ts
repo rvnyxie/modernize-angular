@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntityListComponent } from './entity-list/entity-list.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { EntityFormComponent } from './entity-form/entity-form.component';
 
 
 
 @NgModule({
     declarations: [
-        EntityListComponent
+        EntityListComponent,
+        EntityFormComponent
     ],
-    exports: [
-        EntityListComponent
-    ],
-  imports: [
-    CommonModule,
-    FormsModule
-  ]
+  exports: [
+    EntityListComponent,
+    EntityFormComponent
+  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class SharedModule { }

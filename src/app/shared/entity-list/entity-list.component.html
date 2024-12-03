@@ -1,5 +1,14 @@
 <!-- Entity List -->
 <div class="entity-list">
+  <!-- Entity List Heading -->
+  <div class="entity-list-heading">
+    <h2></h2>
+    <button class="btn btn-success" (click)="onAddRow()">
+      <span><i class="ti ti-plus"></i></span>
+      <span>Thêm mới</span>
+    </button>
+  </div>
+
   <!-- Search Bar Container -->
   <div class="search-bar-container">
     <h2>Thông tin tìm kiếm</h2>
@@ -79,7 +88,7 @@
         <tr *ngFor="let row of data; let i = index">
           <td class="num-order">{{ i+1 }}</td>
           <td *ngFor="let column of columns">
-            <ng-container *ngIf="column.type === 'icon'; else textContent">
+            <ng-container *ngIf="column.type === 'select'; else textContent">
               <i
                 [ngClass]="row[column.field] ? 'ti ti-circle-check-filled' : 'ti ti-circle-x-filled'"
                 [style.color]="row[column.field] ? 'rgb(56,158,56)' : 'rgb(241, 56, 56)'"
@@ -91,7 +100,7 @@
           </td>
           <td>
             <div class="table-btn-group">
-              <button class="btn btn-info">
+              <button class="btn btn-info" (click)="onEditRow(row)">
                 <i class="ti ti-edit"></i>
               </button>
               <button class="btn btn-danger" (click)="onDeleteRow(row)">

@@ -7,6 +7,15 @@
     margin-bottom: 1.5rem;
   }
 
+  .entity-list-heading {
+    display: flex;
+    justify-content: space-between;
+
+    button > span:first-child {
+      margin-right: 0.25rem;
+    }
+  }
+
   .search-bar-container {
     margin-bottom: 1.5rem;
 
