@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import $ from 'jquery';
 
@@ -11,5 +11,12 @@ export class SidebarComponent {
   @Input() isSidebarVisible: boolean = false;
   @Input() isXXLScreen: boolean = false;
 
-  toggleSidebar() {}
+  @Output() toggleSidebar = new EventEmitter<any>();
+
+  /**
+   * Sidebar toggle event handler
+   */
+  onToggleSidebar() {
+    this.toggleSidebar.emit();
+  }
 }

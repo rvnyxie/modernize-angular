@@ -1,23 +1,19 @@
 <aside
   class="left-sidebar"
-  [ngClass]="{
-    'show-sidebar': isSidebarVisible,
-    'hide-on-xxl': !isSidebarVisible && isXXLScreen}"
+  [ngClass]="{'hide-sidebar': !isXXLScreen && !isSidebarVisible}"
 >
-
-  <!-- Toggle Button -->
-  <button class="menu-toggle" (click)="toggleSidebar()">
-    <i class="ti ti-menu"></i>
-  </button>
   <!-- Sidebar scroll-->
   <div>
-    <div class="brand-logo d-flex align-items-center justify-content-between">
-      <a href="#" class="text-nowrap logo-img">
-        <img src="../../../assets/images/logos/dark-logo.svg " width="180" alt="" />
+    <div class="brand-logo">
+      <a href="#" class="logo-img">
+        <img src="../../../assets/images/logos/dark-logo.svg" width="180" alt="Logo" />
       </a>
-      <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-        <i class="ti ti-x fs-8"></i>
-      </div>
+      <button
+        class="close-btn sidebartoggler" id="sidebarCollapse"
+        (click)="onToggleSidebar()"
+      >
+        <i class="ti ti-x"></i>
+      </button>
     </div>
     <!-- Sidebar navigation-->
     <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
