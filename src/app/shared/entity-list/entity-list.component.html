@@ -1,0 +1,67 @@
+<!-- Entity List -->
+<div class="entity-list">
+  <!-- Search bar -->
+  <h2>Thông tin tìm kiếm</h2>
+  <div class="search-bar">
+    <!-- Search Inputs -->
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search {{ entityName }}"
+      (input)="onSearch()"
+    >
+    <!-- More input here -->
+
+    <!-- Search Button Group -->
+    <div class="search-btn-group">
+      <button class="btn btn-outline-dark">
+        <i class="ti ti-reload"></i>
+        <span>Reset</span>
+      </button>
+      <button class="btn btn-primary">
+        <i class="ti ti-search"></i>
+        <span>Search</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <h2>{{ entityName }}</h2>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th *ngFor="let column of columns">{{ column.header }}</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data; let i = index">
+          <td class="num-order">{{ i+1 }}</td>
+          <td *ngFor="let column of columns">
+            <ng-container *ngIf="column.type === 'icon'; else textContent">
+              <i
+                [ngClass]="row[column.field] ? 'ti ti-circle-check' : 'ti ti-circle-x'"
+                [style.color]="row[column.field] ? 'green' : 'red'"
+              ></i>
+            </ng-container>
+            <ng-template #textContent>
+              {{ row[column.field] }}
+            </ng-template>
+          </td>
+          <td>
+            <div class="table-btn-group">
+              <button class="btn btn-info">
+                <i class="ti ti-edit"></i>
+              </button>
+              <button class="btn btn-danger">
+                <i class="ti ti-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

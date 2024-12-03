@@ -20,6 +20,10 @@ export class SidebarComponent {
     this.toggleSidebar.emit();
   }
 
+  /**
+   * Toggle submenu of from a sidebar section
+   * @param event Current clicked tag
+   */
   toggleSubmenu(event: Event): void {
     const target = event.currentTarget as HTMLElement;
     const parent = target.parentElement;

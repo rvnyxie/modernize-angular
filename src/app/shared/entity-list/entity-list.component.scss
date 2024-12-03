@@ -1,0 +1,47 @@
+@import "styles/abstracts/variables";
+
+.entity-list {
+  .search-bar {
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    font-weight: bold;
+  }
+
+  .table-container {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      color: $white;
+      background-color: $primary;
+      text-align: center;
+    }
+
+    .num-order {
+      text-align: center;
+    }
+
+    .ti-circle-check, .ti-circle-x {
+      display: block;
+      font-size: 1.25rem;
+      text-align: center;
+    }
+
+    button {
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+}

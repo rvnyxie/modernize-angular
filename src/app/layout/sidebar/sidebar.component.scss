@@ -88,6 +88,10 @@
   ul {
     padding: 0;
 
+    span {
+      user-select: none;
+    }
+
     .sidebar-item {
       position: relative;
 
@@ -102,6 +106,10 @@
 
           .sidebar-link {
             font-size: 13px;
+          }
+
+          .ti {
+            font-size: 1.25rem;
           }
         }
 

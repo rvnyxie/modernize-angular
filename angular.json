@@ -40,6 +40,9 @@
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles/main.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            },
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
               "src/assets/js/app.min.js",
