@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'ord-entity-list',
@@ -10,6 +10,8 @@ export class EntityListComponent implements OnInit {
   @Input() columns: any[] = [];
   @Input() data: any[] = [];
 
+  @Output() deleteRow = new EventEmitter();
+
   searchTerm: string = '';
 
   constructor() {
@@ -20,5 +22,10 @@ export class EntityListComponent implements OnInit {
 
   onSearch(): void {
     console.log('onSearch');
+  }
+
+  onDeleteRow(row: any) {
+    console.log('onDeleteRow', row);
+    this.deleteRow.emit(row);
   }
 }
