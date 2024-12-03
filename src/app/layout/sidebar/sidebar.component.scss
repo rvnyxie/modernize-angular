@@ -89,6 +89,34 @@
     padding: 0;
 
     .sidebar-item {
+      position: relative;
+
+      &.has-children {
+        .submenu {
+          list-style: none;
+          padding-left: 20px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease, opacity 0.3s ease;
+          opacity: 0;
+
+          .sidebar-link {
+            font-size: 13px;
+          }
+        }
+
+        &.open {
+          .submenu {
+            max-height: 600px;
+            opacity: 1;
+          }
+
+          .submenu-icon {
+            transform: rotate(90deg);
+          }
+        }
+      }
+
       .sidebar-link {
         color: $sidebar-text;
         display: flex;

@@ -43,6 +43,55 @@
           </a>
         </li>
 
+        <!-- Management Section -->
+        <li class="sidebar-item has-children">
+          <!-- Management Menu Title -->
+          <a
+            class="sidebar-link"
+            aria-expanded="false"
+            (click)="toggleSubmenu($event)"
+          >
+          <span>
+            <i class="ti ti-presentation"></i>
+          </span>
+            <span class="hide-menu">Management</span>
+            <i class="submenu-icon ti ti-chevron-right"></i>
+          </a>
+
+          <!-- Management Submenu -->
+          <ul class="submenu">
+            <!-- Province -->
+            <li class="sidebar-item">
+              <a class="sidebar-link" routerLink="/management/provinces" routerLinkActive="active">
+                <span>
+                  <i class="ti ti-building-fortress"></i>
+                </span>
+                <span class="hide-menu">Province</span>
+              </a>
+            </li>
+
+            <!-- District -->
+            <li class="sidebar-item">
+              <a class="sidebar-link" routerLink="/management/districts" routerLinkActive="active">
+                <span>
+                  <i class="ti ti-building"></i>
+                </span>
+                <span class="hide-menu">District</span>
+              </a>
+            </li>
+
+            <!-- Commune -->
+            <li class="sidebar-item">
+              <a class="sidebar-link" routerLink="/management/communes" routerLinkActive="active">
+                <span>
+                  <i class="ti ti-building-church"></i>
+                </span>
+                <span class="hide-menu">Commune</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
         <!-- Account Section -->
         <li class="nav-small-cap">
           <i class="ti ti-dots nav-small-cap-icon fs-4"></i>

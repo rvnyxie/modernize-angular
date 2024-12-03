@@ -19,4 +19,14 @@ export class SidebarComponent {
   onToggleSidebar() {
     this.toggleSidebar.emit();
   }
+
+  toggleSubmenu(event: Event): void {
+    const target = event.currentTarget as HTMLElement;
+    const parent = target.parentElement;
+    if (parent?.classList.contains('open')) {
+      parent.classList.remove('open');
+    } else {
+      parent?.classList.add('open');
+    }
+  }
 }
