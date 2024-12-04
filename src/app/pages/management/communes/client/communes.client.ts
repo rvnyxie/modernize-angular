@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Commune } from "../model/commune";
+import { Commune } from "../model/commune.model";
 import { map, Observable } from "rxjs";
 import { AuthService } from "../../../../auth/auth.service";
+import { CommuneCreation } from "../model/commune-creation.model";
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class CommunesClient {
   /**
    * Get list of communes
    */
-  getCommunes(): Observable<Commune[]> {
+  getCommunes() {
     // Settings for getting
     const body = {
       filter: null,
@@ -37,13 +38,17 @@ export class CommunesClient {
       { headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.accessToken}`}
-    }).pipe(
-      map(response  => response.items as Commune[])
-    );
+    });
   }
 
+  /**
+   * Create or update commune
+   * @param commune CommuneModel need to be created or updated
+   */
   createOrUpdateCommunes(commune: Commune): Observable<Commune> {
-    return this.httpClient.post<Commune>(this.createAndUpdateApiUrl, commune, { headers: {
+    const body = this.mapCommuneToCreationOrUpdateCommune(commune);
+
+    return this.httpClient.post<Commune>(this.createAndUpdateApiUrl, body, { headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.accessToken}`}
     });
@@ -51,7 +56,7 @@ export class CommunesClient {
 
   /**
    * Delete a commune by ID
-   * @param id Commune's ID
+   * @param id CommuneModel's ID
    */
   deleteCommuneById(id: number) {
     const url = `${this.deleteApiUrl}/${id}`;
@@ -60,5 +65,24 @@ export class CommunesClient {
         'Authorization': `Bearer ${this.accessToken}`
       }
     });
+  }
+
+  /**
+   * Map CommuneModel to Creation or Update CommuneModel
+   * @param commune CommuneModel need to be mapped
+   */
+  mapCommuneToCreationOrUpdateCommune(commune: Commune): CommuneCreation {
+    return {
+      id: commune.id,
+      maTinh: commune.maTinh,
+      maHuyen: commune.maHuyen,
+      maXa: commune.maXa,
+      tenXa: commune.tenXa,
+      isActive: commune.isActive,
+      isXaNgheo: commune.isXaNgheo,
+      isXaMienNui: commune.isXaMienNui,
+      isXaDanToc: commune.isXaDanToc,
+      isThanhThi: commune.isThanhThi,
+    }
   }
 }

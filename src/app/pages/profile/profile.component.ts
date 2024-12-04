@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
     diaChi: [''], // Address
     maTinh: [''], // Province code
     maHuyen: [''], // District code
-    maXa: [''], // Commune code
+    maXa: [''], // CommuneModel code
     password: ['', Validators.required], // For updating password
     re_password: ['', Validators.required], // Confirm password
   });

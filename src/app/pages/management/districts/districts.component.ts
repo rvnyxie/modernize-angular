@@ -41,7 +41,6 @@ export class DistrictsComponent implements OnInit{
     this.districtClient.getDistricts().subscribe({
       next: (response) => {
         this.data = response.items;
-        console.log("Districts loaded: " + response.items);
       },
       error: (err) => {
         console.error("Failed to load districts: " + err);
@@ -96,6 +95,7 @@ export class DistrictsComponent implements OnInit{
       next: (response) => {
         this.closeForm();
         console.log("Successfully create or update district", response);
+        this.loadDistricts();
         alert("Successfully create or update district!");
       },
       error: (err) => {

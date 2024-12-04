@@ -2,5 +2,16 @@
   [entityName]="'Danh sách tỉnh huyện xã'"
   [columns]="columns"
   [data]="data"
+  (addRow)="addCommune()"
+  (editRow)="editCommune($event)"
   (deleteRow)="deleteCommune($event)"
 ></ord-entity-list>
+<ord-entity-form
+  *ngIf="isFormVisible"
+  [title]="isFormEditing ? 'Sửa thông tin xã' : 'Tạo xã mới'"
+  [formType]="formType"
+  [formControls]="communeControlsToAddOrDelete"
+  [formFields]="columns"
+  (formSubmit)="handleSubmit($event)"
+  (formCancel)="handleCancel()"
+></ord-entity-form>

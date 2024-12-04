@@ -95,6 +95,7 @@ export class ProvincesComponent implements OnInit {
       next: (response) => {
         this.closeForm();
         console.log("Successfully create or update province", response);
+        this.loadProvinces();
         alert("Successfully create or update province!");
       },
       error: (err) => {
