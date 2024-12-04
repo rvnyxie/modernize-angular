@@ -117,6 +117,9 @@ export class ProvincesComponent implements OnInit {
     this.isFormVisible = true;
   }
 
+  /**
+   * Close form
+   */
   closeForm() {
     this.isFormVisible = false;
   }

@@ -2,5 +2,16 @@
   [entityName]="'Danh sách tỉnh huyện'"
   [columns]="columns"
   [data]="data"
+  (addRow)="addDistrict()"
+  (editRow)="editProvince($event)"
   (deleteRow)="deleteDistrict($event)"
 ></ord-entity-list>
+<ord-entity-form
+  *ngIf="isFormVisible"
+  [title]="isFormEditing ? 'Sửa thông tin huyện' : 'Tạo huyện mới'"
+  [formType]="formType"
+  [formControls]="districtControlsToAddOrDelete"
+  [formFields]="columns"
+  (formSubmit)="handleSubmit($event)"
+  (formCancel)="handleCancel()"
+></ord-entity-form>

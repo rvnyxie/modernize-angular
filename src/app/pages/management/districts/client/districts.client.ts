@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from "../../../../auth/auth.service";
 import { District } from "../model/district.model";
+import { DistrictCreation } from "../model/district-creation.model";
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,21 @@ export class DistrictsClient {
   }
 
   /**
+   * Create or update district
+   * @param district District need to be created or updated
+   */
+  createOrUpdateDistrict(district: District) {
+    const body = this.mapDistrictToCreationOrUpdateDistrict(district);
+
+    return this.httpClient.post(this.createAndUpdateApiUrl, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    })
+  }
+
+  /**
    * Delete district by ID
    * @param id District's ID
    */
@@ -51,5 +67,20 @@ export class DistrictsClient {
         'Authorization': `Bearer ${this.accessToken}`,
       }
     });
+  }
+
+  /**
+   * Map District to Creation or Update District
+   * @param district District need to be mapped
+   */
+  mapDistrictToCreationOrUpdateDistrict(district: District): DistrictCreation {
+    return {
+      id: district.id,
+      maTinh: district.maTinh,
+      tenHuyen: district.tenHuyen,
+      maHuyen: district.maHuyen,
+      cap: district.cap,
+      isActive: district.isActive
+    };
   }
 }
