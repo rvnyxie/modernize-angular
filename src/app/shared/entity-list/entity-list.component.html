@@ -3,7 +3,7 @@
   <!-- Entity List Heading -->
   <div class="entity-list-heading">
     <h2></h2>
-    <button class="btn btn-success" (click)="onAddRow()">
+    <button class="btn btn-primary" (click)="onAddRow()">
       <span><i class="ti ti-plus"></i></span>
       <span>Thêm mới</span>
     </button>
@@ -91,7 +91,7 @@
             <ng-container *ngIf="column.type === 'select'; else textContent">
               <i
                 [ngClass]="row[column.name] ? 'ti ti-circle-check-filled' : 'ti ti-circle-x-filled'"
-                [style.color]="row[column.name] ? 'rgb(56,158,56)' : 'rgb(241, 56, 56)'"
+                [style.color]="row[column.name] ? '#089740' : '#EB3333'"
               ></i>
             </ng-container>
             <ng-template #textContent>
@@ -100,7 +100,7 @@
           </td>
           <td>
             <div class="table-btn-group">
-              <button class="btn btn-info" (click)="onEditRow(row)">
+              <button class="btn btn-outline-dark" (click)="onEditRow(row)">
                 <i class="ti ti-edit"></i>
               </button>
               <button class="btn btn-danger" (click)="onDeleteRow(row)">
