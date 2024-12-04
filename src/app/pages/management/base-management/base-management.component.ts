@@ -1,14 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { ProvincesClient } from "../provinces/client/provinces.client";
+import { DistrictsClient } from "../districts/client/districts.client";
+import { CommunesClient } from "../communes/client/communes.client";
+import { Province } from "../provinces/model/province.model";
+import { BaseManagementClient } from "./base-management-client/base-management.client";
+import { District } from "../districts/model/district.model";
+import { Commune } from "../communes/model/commune.model";
+import { ProvinceCreation } from "../provinces/model/province-creation.model";
+import { DistrictCreation } from "../districts/model/district-creation.model";
+import { CommuneCreation } from "../communes/model/commune-creation.model";
 
 @Component({
   selector: 'ord-base-management',
   templateUrl: './base-management.component.html',
   styleUrl: './base-management.component.scss'
 })
-export abstract class BaseManagementComponent<T> implements OnInit {
+export abstract class BaseManagementComponent<T extends Province | District | Commune> implements OnInit {
   abstract defaultControls: T;
   abstract columns: any[];
-  abstract dataService: any;
+  abstract dataClient: ProvincesClient | DistrictsClient | CommunesClient;
 
   data: T[] = [];
   controlsToAddOrEdit!: T;
@@ -24,7 +34,7 @@ export abstract class BaseManagementComponent<T> implements OnInit {
    * Load data
    */
   loadData() {
-    this.dataService.getList().subscribe({
+    this.dataClient.getList().subscribe({
       next: (response: any) => {
         this.data = response.items;
       },
@@ -61,7 +71,7 @@ export abstract class BaseManagementComponent<T> implements OnInit {
    */
   deleteEntity(entity: T) {
     const entityId = (entity as any).id;
-    this.dataService.deleteById(entityId).subscribe({
+    this.dataClient.deleteById(entityId).subscribe({
       next: (response: any) => {
         alert("Successfully deleted entity!");
         this.loadData();
@@ -77,7 +87,7 @@ export abstract class BaseManagementComponent<T> implements OnInit {
    * @param formValue Form data
    */
   handleSubmit(formValue: T) {
-    this.dataService.createOrUpdate(formValue).subscribe({
+    this.dataClient.createOrUpdate(formValue).subscribe({
       next: (response: any) => {
         this.closeForm();
         this.loadData();

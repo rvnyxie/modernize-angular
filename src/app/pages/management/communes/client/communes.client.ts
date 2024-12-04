@@ -4,74 +4,28 @@ import { Commune } from "../model/commune.model";
 import { Observable } from "rxjs";
 import { AuthService } from "../../../../auth/auth.service";
 import { CommuneCreation } from "../model/commune-creation.model";
+import { BaseManagementClient } from "../../base-management/base-management-client/base-management.client";
 
 @Injectable({
   providedIn: 'root',
 })
-export class CommunesClient {
-  private getApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/get-list';
-  private createAndUpdateApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/create-or-update';
-  private deleteApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/delete-common-result';
+export class CommunesClient extends BaseManagementClient<Commune, CommuneCreation>{
+  protected getApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/get-list';
+  protected createAndUpdateApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/create-or-update';
+  protected deleteApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/delete-common-result';
 
   accessToken = this.authService.getAccessToken();
 
-  constructor(private httpClient: HttpClient,
-              private authService: AuthService,) {}
-
-  /**
-   * Get list of communes
-   */
-  getCommunes() {
-    // Settings for getting
-    const body = {
-      filter: null,
-      isActive: null,
-      skipCount: 0,
-      maTinh: null,
-      maHuyen: null,
-      maxResultCount: 10
-    }
-
-    return this.httpClient.post<any>(
-      this.getApiUrl,
-      body,
-      { headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.accessToken}`}
-    });
-  }
-
-  /**
-   * Create or update commune
-   * @param commune CommuneModel need to be created or updated
-   */
-  createOrUpdateCommunes(commune: Commune): Observable<Commune> {
-    const body = this.mapCommuneToCreationOrUpdateCommune(commune);
-
-    return this.httpClient.post<Commune>(this.createAndUpdateApiUrl, body, { headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.accessToken}`}
-    });
-  }
-
-  /**
-   * Delete a commune by ID
-   * @param id CommuneModel's ID
-   */
-  deleteCommuneById(id: number) {
-    const url = `${this.deleteApiUrl}/${id}`;
-    return this.httpClient.post(url, {}, {
-      headers: {
-        'Authorization': `Bearer ${this.accessToken}`
-      }
-    });
+  constructor(httpClient: HttpClient,
+              authService: AuthService,) {
+    super(httpClient, authService);
   }
 
   /**
    * Map Commune to Creation or Update Commune
    * @param commune Commune need to be mapped
    */
-  mapCommuneToCreationOrUpdateCommune(commune: Commune): CommuneCreation {
+  protected mapToCreationOrUpdate(commune: Commune): CommuneCreation {
     return {
       id: commune.id,
       maTinh: commune.maTinh,

@@ -10,7 +10,7 @@ import { BaseManagementComponent } from "../base-management/base-management.comp
   styleUrl: './provinces.component.scss'
 })
 export class ProvincesComponent extends BaseManagementComponent<Province>{
-  defaultControls: Province = {
+  readonly defaultControls: Province = {
     id: 0,
     maTinh: null,
     tenTinh: null,
@@ -22,7 +22,7 @@ export class ProvincesComponent extends BaseManagementComponent<Province>{
   };
 
   columns = columnConfig.province;
-  dataService = this.provincesClient;
+  dataClient = this.provincesClient;
 
   constructor(private provincesClient: ProvincesClient) {
     super();
