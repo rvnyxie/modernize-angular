@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Commune } from "../model/commune.model";
-import { map, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { AuthService } from "../../../../auth/auth.service";
 import { CommuneCreation } from "../model/commune-creation.model";
 
@@ -33,8 +33,8 @@ export class CommunesClient {
     }
 
     return this.httpClient.post<any>(
-      `${this.getApiUrl}`,
-      JSON.stringify(body),
+      this.getApiUrl,
+      body,
       { headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.accessToken}`}
@@ -68,8 +68,8 @@ export class CommunesClient {
   }
 
   /**
-   * Map CommuneModel to Creation or Update CommuneModel
-   * @param commune CommuneModel need to be mapped
+   * Map Commune to Creation or Update Commune
+   * @param commune Commune need to be mapped
    */
   mapCommuneToCreationOrUpdateCommune(commune: Commune): CommuneCreation {
     return {
