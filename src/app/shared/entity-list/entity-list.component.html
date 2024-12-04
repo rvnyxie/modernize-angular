@@ -90,12 +90,12 @@
           <td *ngFor="let column of columns">
             <ng-container *ngIf="column.type === 'select'; else textContent">
               <i
-                [ngClass]="row[column.field] ? 'ti ti-circle-check-filled' : 'ti ti-circle-x-filled'"
-                [style.color]="row[column.field] ? 'rgb(56,158,56)' : 'rgb(241, 56, 56)'"
+                [ngClass]="row[column.name] ? 'ti ti-circle-check-filled' : 'ti ti-circle-x-filled'"
+                [style.color]="row[column.name] ? 'rgb(56,158,56)' : 'rgb(241, 56, 56)'"
               ></i>
             </ng-container>
             <ng-template #textContent>
-              {{ row[column.field] }}
+              {{ row[column.name] }}
             </ng-template>
           </td>
           <td>

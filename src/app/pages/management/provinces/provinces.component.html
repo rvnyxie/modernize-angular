@@ -9,6 +9,8 @@
 <ord-entity-form
   *ngIf="isFormVisible"
   [title]="isFormEditing ? 'Sửa thông tin tỉnh' : 'Tạo tỉnh mới'"
+  [formType]="formType"
+  [formControls]="provinceControlsToAddOrDelete"
   [formFields]="columns"
   (formSubmit)="handleSubmit($event)"
   (formCancel)="handleCancel()"

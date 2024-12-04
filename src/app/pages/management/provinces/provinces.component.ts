@@ -9,9 +9,22 @@ import { Province } from "./model/province.model";
   styleUrl: './provinces.component.scss'
 })
 export class ProvincesComponent implements OnInit {
+  readonly defaultNewProvinceControls: Province = {
+    id: 0,
+    maTinh: null,
+    tenTinh: null,
+    cap: null,
+    vungSinhThai: null,
+    vungDiaLy: null,
+    vungMien: null,
+    isActive: false
+  }
+
   columns = columnConfig.province;
   data: any[] = [];
+  provinceControlsToAddOrDelete: Province = this.defaultNewProvinceControls;
 
+  formType: "add" | "edit" = "add";
   isFormVisible = false;
   isFormEditing = false;
 
@@ -42,6 +55,8 @@ export class ProvincesComponent implements OnInit {
   addProvince() {
     this.openForm();
     this.isFormEditing = false;
+    this.formType = "add";
+    this.provinceControlsToAddOrDelete = this.defaultNewProvinceControls;
   }
 
   /**
@@ -51,6 +66,8 @@ export class ProvincesComponent implements OnInit {
   editProvince(rowToEdit: Province) {
     this.openForm();
     this.isFormEditing = true;
+    this.formType = "edit";
+    this.provinceControlsToAddOrDelete = {...rowToEdit};
   }
 
   /**
@@ -74,7 +91,16 @@ export class ProvincesComponent implements OnInit {
    */
   handleSubmit(formValue: any) {
     console.log('Form submitted:', formValue);
-    this.isFormVisible = false;
+    this.provincesClient.createOrUpdateProvince(formValue).subscribe({
+      next: (response) => {
+        this.closeForm();
+        console.log("Successfully create or update province", response);
+        alert("Successfully create or update province!");
+      },
+      error: (err) => {
+        console.error("Failed to create or update province: ", err);
+      }
+    });
   }
 
   /**
@@ -89,5 +115,9 @@ export class ProvincesComponent implements OnInit {
    */
   openForm() {
     this.isFormVisible = true;
+  }
+
+  closeForm() {
+    this.isFormVisible = false;
   }
 }
