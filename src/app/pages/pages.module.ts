@@ -20,7 +20,7 @@ import { SharedModule } from "../shared/shared.module";
     DashboardComponent,
     ProvincesComponent,
     DistrictsComponent,
-    CommunesComponent
+    CommunesComponent,
   ],
   imports: [
     CommonModule,
