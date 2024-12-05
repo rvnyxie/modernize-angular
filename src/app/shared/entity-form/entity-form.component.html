@@ -1,84 +1,45 @@
 <div class="overlay">
+  <!-- Form container -->
   <div class="form-container">
+    <!-- Form -->
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <h3>{{ title }}</h3>
-
+      <!-- Form Controls container -->
       <div [class.flex]="title.includes('xã')">
-        <div class="left-part">
-          <div *ngFor="let field of formFields">
+        <!-- Generate left and right parts dynamically -->
+        <div class="form-part" *ngFor="let part of ['text', 'select']">
+          <ng-container *ngFor="let field of formFields">
             <div
               class="form-field"
-              *ngIf="(formType === 'add' && field.isAddable && field.type === 'text') || (formType === 'edit' && field.isEditable && field.type === 'text')"
+              *ngIf="(formType === 'add' && field.isAddable && field.type === part) || (formType === 'edit' && field.isEditable && field.type === part)"
             >
-              <!-- Input text -->
-              <label *ngIf="field.type === 'text'" [for]="field.name">{{ field.header }}</label>
-              <input
-                *ngIf="field.type === 'text'"
-                [type]="field.type"
-                [id]="field.name"
-                [formControlName]="field.name"
-              />
-              <div class="field-error" *ngIf="formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched && field.type === 'text'">
-                <small>{{ field.errorMessage }}</small>
+              <label [for]="field.name">{{ field.header }}</label>
+              <!-- Render input or dropdown based on field type -->
+              <ng-container [ngSwitch]="field.type">
+                <!-- Input text -->
+                <input
+                  *ngSwitchCase="'text'"
+                  [type]="field.type"
+                  [id]="field.name"
+                  [formControlName]="field.name"
+                />
+                <!-- Dropdown -->
+                <ord-dropdown
+                  *ngSwitchCase="'select'"
+                  [formControlName]="field.name"
+                  [isReadOnly]="true"
+                  [items]="field.options"
+                ></ord-dropdown>
+              </ng-container>
+              <!-- Validation error -->
+              <div class="field-error" [class.visible]="formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched">
+                <span>{{ field.errorMessage }}</span>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="right-part">
-          <div *ngFor="let field of formFields">
-            <div
-              class="form-field"
-              *ngIf="(formType === 'add' && field.isAddable && field.type === 'select') || (formType === 'edit' && field.isEditable && field.type === 'select')"
-            >
-              <!-- Dropdown -->
-              <label *ngIf="field.type === 'select'" [for]="field.name">{{ field.header }}</label>
-              <ord-dropdown
-                *ngIf="field.type === 'select'"
-                [formControlName]="field.name"
-                [isReadOnly]="true"
-                [items]="field.options"
-              ></ord-dropdown>
-              <div class="field-error" *ngIf="formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched && field.type === 'select'">
-                <small>{{ field.errorMessage }}</small>
-              </div>
-            </div>
-          </div>
+          </ng-container>
         </div>
       </div>
-<!--      <div *ngFor="let field of formFields" [class.flex]="title.includes('xã')">-->
-<!--        <div-->
-<!--          class="form-field"-->
-<!--          *ngIf="(formType === 'add' && field.isAddable) || (formType === 'edit' && field.isEditable)"-->
-<!--        >-->
-<!--          &lt;!&ndash; Input text &ndash;&gt;-->
-<!--          <div class="input-group">-->
-<!--            <label [for]="field.name">{{ field.header }}</label>-->
-<!--            <input-->
-<!--              *ngIf="field.type === 'text'"-->
-<!--              [type]="field.type"-->
-<!--              [id]="field.name"-->
-<!--              [formControlName]="field.name"-->
-<!--            />-->
-<!--            <div class="field-error" *ngIf="formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched">-->
-<!--              <small>{{ field.errorMessage }}</small>-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash; Dropdown &ndash;&gt;-->
-<!--          <div class="dropdown-group">-->
-<!--            <ord-dropdown-->
-<!--              *ngIf="field.type === 'select'"-->
-<!--              [formControlName]="field.name"-->
-<!--              [isReadOnly]="true"-->
-<!--              [items]="field.options"-->
-<!--            ></ord-dropdown>-->
-<!--            <div class="field-error" *ngIf="formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched">-->
-<!--              <small>{{ field.errorMessage }}</small>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
+      <!-- Form actions -->
       <div class="form-actions">
         <button type="button" class="btn btn-outline-dark" (click)="onCancel()">Cancel</button>
         <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">Submit</button>
