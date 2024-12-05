@@ -5,6 +5,7 @@
     [readOnly]="isReadOnly"
     [placeholder]="placeholder"
     [class.disabled]="isDisabled"
+    [class.readonly]="isReadOnly"
     [formControl]="searchControl"
     (input)="onSearch(searchInput.value)"
     (keydown)="onKeyDown($event)"

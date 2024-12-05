@@ -9,6 +9,10 @@
     @include input-style;
   }
 
+  input.readonly {
+    cursor: auto;
+  }
+
   .input-chevron {
     position: absolute;
     top: 6px;
