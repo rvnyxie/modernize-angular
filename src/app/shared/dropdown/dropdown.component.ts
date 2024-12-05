@@ -14,13 +14,11 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from "@angular/f
 export class DropdownComponent implements ControlValueAccessor{
   @Input() items: { label: string, value: any }[] = [];
   @Input() placeholder: string = "Default placeholder";
+  @Input() isReadOnly: boolean = false;
 
   isDropdownOpen = false;
   isDisabled = false;
-  filteredItems: { label: string, value: any }[] = [
-    { label: "Default label 1", value: "Default value 1" },
-    { label: "Default label 2", value: "Default value 2" },
-  ]
+  filteredItems: { label: string, value: any }[] = [];
   activeIndex = 0;
 
   searchControl = new FormControl();
@@ -30,10 +28,20 @@ export class DropdownComponent implements ControlValueAccessor{
 
   constructor() {
     this.searchControl.valueChanges.subscribe(value => {
-      this.filteredItems = this.items.filter(item => {
-        return item.label.toLowerCase().includes(value.toLowerCase())
-      });
-      this.activeIndex = 0;
+      if (value != null && typeof value === "string") {
+        const searchTerms = value.toLowerCase().split(' ').filter(term => term.trim() !== '');
+
+        this.filteredItems = this.items.filter(item => {
+          const wordsInLabel = item.label.toLowerCase().split(" ");
+
+          // Check if every search term matches any word in the label
+          return searchTerms.every(searchTerm =>
+            wordsInLabel.some(word => word.includes(searchTerm))
+          );
+        });
+
+        this.activeIndex = 0;
+      }
     });
   }
 
@@ -52,6 +60,11 @@ export class DropdownComponent implements ControlValueAccessor{
 
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
+    if (isDisabled) {
+      this.searchControl.disable();
+    } else {
+      this.searchControl.enable();
+    }
   }
 
   /**
@@ -72,7 +85,10 @@ export class DropdownComponent implements ControlValueAccessor{
     } else if (event.key === "ArrowUp") {
       this.activeIndex = Math.min(this.activeIndex - 1, 0);
     } else if (event.key === "Enter") {
-      this.selectItem(this.filteredItems[this.activeIndex]);
+      if (this.filteredItems.length > 0) {
+        this.selectItem(this.filteredItems[this.activeIndex]);
+      }
+      event.preventDefault();
     }
   }
 
@@ -82,7 +98,27 @@ export class DropdownComponent implements ControlValueAccessor{
    */
   selectItem(item: any): void {
     this.searchControl.setValue(item.label, { emitEvent: false });
-    this.onChange(item.value);
+    this.onChange(item.value); // Notify parent form
+    this.onTouched(); // Mark as touched
     this.isDropdownOpen = false;
+  }
+
+  /**
+   * Toggle dropdown menu
+   */
+  toggleDropdownMenu() {
+    if (this.isDisabled) {
+      return;
+    }
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  /**
+   * Handle click on input
+   */
+  onInputClick() {
+    if (this.isReadOnly) {
+      this.toggleDropdownMenu();
+    }
   }
 }

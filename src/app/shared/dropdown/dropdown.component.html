@@ -2,13 +2,15 @@
   <input
     #searchInput
     type="text"
+    [readOnly]="isReadOnly"
     [placeholder]="placeholder"
-    [disabled]="isDisabled"
+    [class.disabled]="isDisabled"
     [formControl]="searchControl"
     (input)="onSearch(searchInput.value)"
     (keydown)="onKeyDown($event)"
+    (click)="onInputClick()"
   />
-  <span class="input-chevron">
+  <span class="input-chevron" (click)="toggleDropdownMenu()">
     <i class="ti ti-chevron-down"></i>
   </span>
   <ul class="dropdown-menu-custom" *ngIf="isDropdownOpen">
@@ -17,7 +19,7 @@
       (click)="selectItem(item)"
       [class.active]="idx === activeIndex"
     >
-      {{ item.label }}
+      <span>{{ item.label }}</span>
     </li>
   </ul>
 </div>
