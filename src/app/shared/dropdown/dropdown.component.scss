@@ -1,0 +1,51 @@
+@import "styles/abstracts/variables";
+
+.dropdown {
+  position: relative;
+  width: fit-content;
+
+  input {
+    padding: 0.25rem 1.75rem 0.25rem 0.5rem;
+    border: 1px solid $input-border-color;
+    border-radius: $border-radius;
+    height: 2rem;
+  }
+
+  .input-chevron {
+    position: absolute;
+    top: 6px;
+    right: 0.5rem;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .input-chevron .ti {
+    font-size: 1.25rem;
+  }
+
+  .dropdown-menu-custom {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 0;
+    margin: 0.25rem 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: $white;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    z-index: 100;
+
+    li {
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    li.active {
+      color: $white;
+      background-color: $primary;
+    }
+  }
+}

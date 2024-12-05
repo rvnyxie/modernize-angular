@@ -1,0 +1,23 @@
+<div class="dropdown">
+  <input
+    #searchInput
+    type="text"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
+    [formControl]="searchControl"
+    (input)="onSearch(searchInput.value)"
+    (keydown)="onKeyDown($event)"
+  />
+  <span class="input-chevron">
+    <i class="ti ti-chevron-down"></i>
+  </span>
+  <ul class="dropdown-menu-custom" *ngIf="isDropdownOpen">
+    <li
+      *ngFor="let item of filteredItems; let idx = index"
+      (click)="selectItem(item)"
+      [class.active]="idx === activeIndex"
+    >
+      {{ item.label }}
+    </li>
+  </ul>
+</div>
