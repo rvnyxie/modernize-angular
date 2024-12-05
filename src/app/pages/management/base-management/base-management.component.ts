@@ -1,27 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ProvincesClient } from "../provinces/client/provinces.client";
-import { DistrictsClient } from "../districts/client/districts.client";
-import { CommunesClient } from "../communes/client/communes.client";
-import { Province } from "../provinces/model/province.model";
 import { BaseManagementClient } from "./base-management-client/base-management.client";
-import { District } from "../districts/model/district.model";
-import { Commune } from "../communes/model/commune.model";
-import { ProvinceCreation } from "../provinces/model/province-creation.model";
-import { DistrictCreation } from "../districts/model/district-creation.model";
-import { CommuneCreation } from "../communes/model/commune-creation.model";
+import { ColumnInfoUsedForGeneration } from "../columns-config";
 
 @Component({
   selector: 'ord-base-management',
   templateUrl: './base-management.component.html',
   styleUrl: './base-management.component.scss'
 })
-export abstract class BaseManagementComponent<T extends Province | District | Commune> implements OnInit {
-  abstract defaultControls: T;
-  abstract columns: any[];
-  abstract dataClient: ProvincesClient | DistrictsClient | CommunesClient;
+export abstract class BaseManagementComponent<EntityType> implements OnInit {
+  // EntityType: The type used in each base management component
 
-  data: T[] = [];
-  controlsToAddOrEdit!: T;
+  abstract defaultControls: EntityType;
+  abstract columns: ColumnInfoUsedForGeneration[];
+  abstract dataClient: BaseManagementClient<EntityType, any>;
+
+  data: EntityType[] = [];
+  controlsToAddOrEdit!: EntityType;
   formType: "add" | "edit" = "add";
   isFormVisible = false;
   isFormEditing = false;
@@ -58,7 +52,7 @@ export abstract class BaseManagementComponent<T extends Province | District | Co
    * Edit entity
    * @param entity Entity to edit
    */
-  editEntity(entity: T) {
+  editEntity(entity: EntityType) {
     this.openForm();
     this.isFormEditing = true;
     this.formType = "edit";
@@ -69,10 +63,10 @@ export abstract class BaseManagementComponent<T extends Province | District | Co
    * Delete entity
    * @param entity Entity to delete
    */
-  deleteEntity(entity: T) {
+  deleteEntity(entity: EntityType) {
     const entityId = (entity as any).id;
     this.dataClient.deleteById(entityId).subscribe({
-      next: (response: any) => {
+      next: () => {
         alert("Successfully deleted entity!");
         this.loadData();
       },
@@ -86,7 +80,7 @@ export abstract class BaseManagementComponent<T extends Province | District | Co
    * Handle form submission
    * @param formValue Form data
    */
-  handleSubmit(formValue: T) {
+  handleSubmit(formValue: EntityType) {
     this.dataClient.createOrUpdate(formValue).subscribe({
       next: (response: any) => {
         this.closeForm();

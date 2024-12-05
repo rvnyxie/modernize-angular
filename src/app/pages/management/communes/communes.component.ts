@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { columnConfig } from "../column-config";
+import { Component } from '@angular/core';
+import { columnsConfig } from "../columns-config";
 import { CommunesClient } from "./client/communes.client";
 import { Commune } from "./model/commune.model";
-import { District } from "../districts/model/district.model";
 import { BaseManagementComponent } from "../base-management/base-management.component";
 
 @Component({
@@ -24,7 +23,7 @@ export class CommunesComponent extends BaseManagementComponent<Commune>{
     isThanhThi: false
   }
 
-  columns = columnConfig.commune;
+  columns = columnsConfig["commune"];
   dataClient = this.communesClient;
 
   constructor(private communesClient: CommunesClient) {

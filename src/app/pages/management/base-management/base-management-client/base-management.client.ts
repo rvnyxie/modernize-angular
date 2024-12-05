@@ -3,7 +3,10 @@ import { HttpClient } from "@angular/common/http";
 import { AuthService } from "../../../../auth/auth.service";
 
 @Injectable()
-export abstract class BaseManagementClient<T, C> {
+export abstract class BaseManagementClient<EntityType, CreationOrUpdateType> {
+  // EntityType: The type used in each base management component
+  // CreationOrUpdateType: The type used for creation or update payloads
+
   protected abstract getApiUrl: string;
   protected abstract createAndUpdateApiUrl: string;
   protected abstract deleteApiUrl: string;
@@ -25,7 +28,7 @@ export abstract class BaseManagementClient<T, C> {
   /**
    * Create or update an entity
    */
-  public createOrUpdate(entity: T) {
+  public createOrUpdate(entity: EntityType) {
     const body = this.mapToCreationOrUpdate(entity);
     return this.httpClient.post(this.createAndUpdateApiUrl, body, {
       headers: this.getHeaders(),
@@ -45,7 +48,7 @@ export abstract class BaseManagementClient<T, C> {
   /**
    * Map entity to creation/update format
    */
-  protected abstract mapToCreationOrUpdate(entity: T): C;
+  protected abstract mapToCreationOrUpdate(entity: EntityType): CreationOrUpdateType;
 
   /**
    * Get common headers

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { columnConfig } from "../column-config";
+import { Component } from '@angular/core';
+import { columnsConfig } from "../columns-config";
 import { DistrictsClient } from "./client/districts.client";
 import { District } from "./model/district.model";
-import { Province } from "../provinces/model/province.model";
 import { BaseManagementComponent } from "../base-management/base-management.component";
 
 @Component({
@@ -20,7 +19,7 @@ export class DistrictsComponent extends BaseManagementComponent<District>{
     isActive: false
   }
 
-  columns = columnConfig.district;
+  columns = columnsConfig["district"];
   dataClient = this.districtClient;
 
   constructor(private districtClient: DistrictsClient) {

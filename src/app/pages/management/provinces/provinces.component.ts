@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { columnConfig } from "../column-config";
+import { Component } from '@angular/core';
+import { columnsConfig } from "../columns-config";
 import { ProvincesClient } from "./client/provinces.client";
 import { Province } from "./model/province.model";
 import { BaseManagementComponent } from "../base-management/base-management.component";
@@ -21,7 +21,7 @@ export class ProvincesComponent extends BaseManagementComponent<Province>{
     isActive: false,
   };
 
-  columns = columnConfig.province;
+  columns = columnsConfig["province"];
   dataClient = this.provincesClient;
 
   constructor(private provincesClient: ProvincesClient) {

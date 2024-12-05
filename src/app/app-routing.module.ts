@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'management/provinces', component: ProvincesComponent },
       { path: 'management/districts', component: DistrictsComponent },
       { path: 'management/communes', component: CommunesComponent },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
     canActivate: [authGuard]
   },
