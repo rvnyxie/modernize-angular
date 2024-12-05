@@ -12,15 +12,15 @@
             [id]="field.name"
             [formControlName]="field.name"
           />
-          <select
+
+          <!-- Dropdown -->
+          <ord-dropdown
             *ngIf="field.type === 'select'"
-            [id]="field.name"
             [formControlName]="field.name"
-          >
-            <option *ngFor="let option of field.options" [value]="option.value">
-              {{ option.label }}
-            </option>
-          </select>
+            [isReadOnly]="true"
+            [items]="field.options"
+          ></ord-dropdown>
+
           <div class="field-error" *ngIf="formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched">
             <small>{{ field.errorMessage }}</small>
           </div>

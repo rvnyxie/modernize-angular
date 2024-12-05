@@ -19,6 +19,7 @@ export class DropdownComponent implements ControlValueAccessor{
   isDropdownOpen = false;
   isDisabled = false;
   filteredItems: { label: string, value: any }[] = [];
+  selectedItems: { label: string, value: any }[] = [];
   activeIndex = 0;
 
   searchControl = new FormControl();
@@ -28,19 +29,23 @@ export class DropdownComponent implements ControlValueAccessor{
 
   constructor() {
     this.searchControl.valueChanges.subscribe(value => {
-      if (value != null && typeof value === "string") {
-        const searchTerms = value.toLowerCase().split(' ').filter(term => term.trim() !== '');
+      if (this.isReadOnly) {
+        this.filteredItems = [...this.items];
+      } else {
+        if (value != null && typeof value === "string") {
+          const searchTerms = value.toLowerCase().split(' ').filter(term => term.trim() !== '');
 
-        this.filteredItems = this.items.filter(item => {
-          const wordsInLabel = item.label.toLowerCase().split(" ");
+          this.filteredItems = this.items.filter(item => {
+            const wordsInLabel = item.label.toLowerCase().split(" ");
 
-          // Check if every search term matches any word in the label
-          return searchTerms.every(searchTerm =>
-            wordsInLabel.some(word => word.includes(searchTerm))
-          );
-        });
+            // Check if every search term matches any word in the label
+            return searchTerms.every(searchTerm =>
+              wordsInLabel.some(word => word.includes(searchTerm))
+            );
+          });
 
-        this.activeIndex = 0;
+          this.activeIndex = 0;
+        }
       }
     });
   }
@@ -48,6 +53,11 @@ export class DropdownComponent implements ControlValueAccessor{
   writeValue(value: any): void {
     const selectedItem = this.items.find(item => item.value === value);
     this.searchControl.setValue(selectedItem?.label || '', { emitEvent: false });
+
+    if (this.isReadOnly) {
+      this.filteredItems = [...this.items];
+      this.activeIndex = this.filteredItems.findIndex(item => item.value === value);
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -86,7 +96,7 @@ export class DropdownComponent implements ControlValueAccessor{
       this.activeIndex = Math.min(this.activeIndex - 1, 0);
     } else if (event.key === "Enter") {
       if (this.filteredItems.length > 0) {
-        this.selectItem(this.filteredItems[this.activeIndex]);
+        this.selectItem(this.filteredItems[this.activeIndex], this.activeIndex);
       }
       event.preventDefault();
     }
@@ -95,9 +105,11 @@ export class DropdownComponent implements ControlValueAccessor{
   /**
    * Handle select item event
    * @param item Item selected
+   * @param index Item's index selected
    */
-  selectItem(item: any): void {
+  selectItem(item: any, index: number): void {
     this.searchControl.setValue(item.label, { emitEvent: false });
+    this.activeIndex = index;
     this.onChange(item.value); // Notify parent form
     this.onTouched(); // Mark as touched
     this.isDropdownOpen = false;

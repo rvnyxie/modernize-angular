@@ -16,7 +16,7 @@
   <ul class="dropdown-menu-custom" *ngIf="isDropdownOpen">
     <li
       *ngFor="let item of filteredItems; let idx = index"
-      (click)="selectItem(item)"
+      (click)="selectItem(item, idx)"
       [class.active]="idx === activeIndex"
     >
       <span>{{ item.label }}</span>

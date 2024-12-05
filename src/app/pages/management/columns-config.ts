@@ -12,8 +12,8 @@ export const columnsConfig: Record<string, ColumnInfoUsedForGeneration[]> = {
     { name: "vungDiaLy", header: "Vùng địa lý", type: "text", required: false, errorMessage: "Error", isAddable: true, isEditable: true },
     { name: "vungMien", header: "Vùng miền", type: "text", required: false, errorMessage: "Error", isAddable: true, isEditable: true },
     { name: "isActive", header: "Hoạt động", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true, options: [
-        { value: true, label: "Yes" },
-        { value: false, label: "No" }
+        { label: "Có", value: true },
+        { label: "Không", value: false }
       ]},
   ],
   district: [
@@ -22,7 +22,10 @@ export const columnsConfig: Record<string, ColumnInfoUsedForGeneration[]> = {
     { name: "maHuyen", header: "Mã huyện", type: "text", required: true, errorMessage: "Needed", isAddable: true, isEditable: true },
     { name: "tenHuyen", header: "Tên huyện", type: "text", required: true, errorMessage: "Needed", isAddable: true, isEditable: true },
     { name: "cap", header: "Cấp", type: "text", required: true, errorMessage: "Needed", isAddable: true, isEditable: true },
-    { name: "isActive", header: "Hoạt động", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true },
+    { name: "isActive", header: "Hoạt động", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true, options: [
+        { label: "Có", value: true },
+        { label: "Không", value: false }
+      ] },
   ],
   commune: [
     // { name: "id", header: "CommuneModel ID" },
@@ -31,11 +34,26 @@ export const columnsConfig: Record<string, ColumnInfoUsedForGeneration[]> = {
     { name: "maXa", header: "Mã xã", type: "text", required: true, errorMessage: "Needed", isAddable: true, isEditable: true },
     { name: "tenXa", header: "Tên xã", type: "text", required: true, errorMessage: "Needed", isAddable: true, isEditable: true },
     { name: "cap", header: "Cấp", type: "text", required: false, errorMessage: "Needed", isAddable: true, isEditable: true },
-    { name: "isActive", header: "Hoạt động", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true },
-    { name: "isXaNgheo", header: "Xã nghèo", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true },
-    { name: "isXaMienNui", header: "Xã miền núi", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true },
-    { name: "isXaDanToc", header: "Xã dân tộc", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true },
-    { name: "isThanhThi", header: "Thành thị", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true },
+    { name: "isActive", header: "Hoạt động", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true, options: [
+        { label: "Có", value: true },
+        { label: "Không", value: false }
+      ] },
+    { name: "isXaNgheo", header: "Xã nghèo", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true, options: [
+        { label: "Có", value: true },
+        { label: "Không", value: false }
+      ] },
+    { name: "isXaMienNui", header: "Xã miền núi", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true, options: [
+        { label: "Có", value: true },
+        { label: "Không", value: false }
+      ] },
+    { name: "isXaDanToc", header: "Xã dân tộc", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true, options: [
+        { label: "Có", value: true },
+        { label: "Không", value: false }
+      ] },
+    { name: "isThanhThi", header: "Thành thị", type: "select", required: false, errorMessage: "Error", isAddable: true, isEditable: true, options: [
+        { label: "Có", value: true },
+        { label: "Không", value: false }
+      ] },
   ],
 };
 
@@ -47,6 +65,6 @@ export interface ColumnInfoUsedForGeneration {
   errorMessage: string | null,
   isAddable: boolean,
   isEditable: boolean,
-  options?: Object[],
+  options?: { label: string, value: boolean }[],
 }
 
