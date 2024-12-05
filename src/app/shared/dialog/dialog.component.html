@@ -1,0 +1,30 @@
+<div class="dialog-overlay" *ngIf="isOpen">
+  <div class="dialog">
+    <!-- Dialog Title -->
+    <h3 class="dialog-title">{{ title }}</h3>
+
+    <!-- Dialog Content -->
+    <div class="dialog-content">
+      <ng-content select="[dialogContent]"></ng-content>
+    </div>
+
+    <!-- Dialog Buttons Group -->
+    <div class="dialog-buttons">
+      <button
+        #cancelBtn
+        type="button"
+        class="button button-cancel"
+        (click)="onCancel()"
+      >
+        <span>Cancel</span>
+      </button>
+      <button
+        type="button"
+        class="button button-confirm"
+        (click)="onConfirm()"
+      >
+        <span>Confirm</span>
+      </button>
+    </div>
+  </div>
+</div>
