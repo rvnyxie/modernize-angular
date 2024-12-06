@@ -3,19 +3,14 @@
 
 .dropdown-custom {
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  gap: 0;
   width: 100%;
   border: 1px solid $input-border-color;
   border-radius: $border-radius;
 
-
   input {
     @include input-style;
-    flex-grow: 1;
     border: none;
-    padding-right: 0;
+    padding-right: 2.25rem;
   }
 
   input.readonly {
@@ -23,7 +18,13 @@
   }
 
   .input-chevron {
-    flex: 0 0 2.25rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 2.25rem;
+    height: 2.25rem;
     border-left: 1px solid $input-border-color;
     border-radius: 0;
 
