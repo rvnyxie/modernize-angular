@@ -18,6 +18,7 @@
               <ng-container [ngSwitch]="field.type">
                 <!-- Input text -->
                 <input
+                  #textInputs
                   *ngSwitchCase="'text'"
                   [type]="field.type"
                   [id]="field.name"

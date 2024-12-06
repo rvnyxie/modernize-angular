@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -6,7 +16,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   templateUrl: './entity-form.component.html',
   styleUrl: './entity-form.component.scss'
 })
-export class EntityFormComponent implements OnInit {
+export class EntityFormComponent implements OnInit, AfterViewInit {
   @Input() title: string = 'Default Form Title';
   @Input() formType!: "add" | "edit";
   @Input() formFields: any[] = [];
@@ -14,6 +24,8 @@ export class EntityFormComponent implements OnInit {
 
   @Output() formSubmit = new EventEmitter<any>();
   @Output() formCancel = new EventEmitter<void>();
+
+  @ViewChildren("textInputs") textInputs!: QueryList<ElementRef<HTMLInputElement>>;
 
   formGroup!: FormGroup;
 
@@ -34,6 +46,15 @@ export class EntityFormComponent implements OnInit {
     if (this.formControls) {
       this.formGroup.patchValue(this.formControls);
     }
+  }
+
+  ngAfterViewInit() {
+    // Focus on the first text input in the list
+    setTimeout(() => {
+      if (this.textInputs.first) {
+        this.textInputs.first.nativeElement.focus();
+      }
+    }, 0);
   }
 
   /**
