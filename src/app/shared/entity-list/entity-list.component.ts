@@ -44,6 +44,8 @@ export class EntityListComponent implements OnInit, OnChanges {
   }>;
   firstRecordIndex: number = 0;
   lastRecordIndex: number = 0;
+  isBackPaginationNavDisabled = false;
+  isForwardPaginationNavDisabled = false;
 
   searchTerm: string = '';
 
@@ -62,21 +64,22 @@ export class EntityListComponent implements OnInit, OnChanges {
       this.recordsPerPageChange.emit(this.recordsPerPage);
     })
 
-    this.calculateRecordIndices();
+    this.calculatePaginationInfo();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["totalRecordsCount"] || changes["recordsPerPage"] || changes["currentPage"]) {
-      this.calculateRecordIndices();
+      this.calculatePaginationInfo();
     }
   }
 
   /**
    * Calculate the indices in pagination
    */
-  private calculateRecordIndices() {
+  private calculatePaginationInfo() {
     this.firstRecordIndex = (this.currentPage - 1) * this.recordsPerPage + 1;
     this.lastRecordIndex = Math.min(this.currentPage * this.recordsPerPage, this.totalRecordsCount);
+    this.checkIsPaginationNavDisabled();
   }
 
   onSearch(): void {
@@ -156,5 +159,22 @@ export class EntityListComponent implements OnInit, OnChanges {
     const maxPage: number = Math.ceil(this.totalRecordsCount / this.recordsPerPage);
     this.currentPage = Math.min(maxPage, this.currentPage + 1);
     this.currentPageChange.emit(this.currentPage);
+  }
+
+  /**
+   * Check if current page is at the edges, so the corresponding nav button will be disabled
+   */
+  checkIsPaginationNavDisabled() {
+    const minPage = 1;
+    const maxPage: number = Math.ceil(this.totalRecordsCount / this.recordsPerPage);
+
+    this.isBackPaginationNavDisabled = false;
+    this.isForwardPaginationNavDisabled = false;
+
+    if (this.currentPage === minPage) {
+      this.isBackPaginationNavDisabled = true;
+    } else if (this.currentPage === maxPage) {
+      this.isForwardPaginationNavDisabled = true;
+    }
   }
 }
