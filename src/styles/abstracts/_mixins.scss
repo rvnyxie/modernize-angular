@@ -23,3 +23,37 @@
   border: 1px solid $input-border-color;
   border-radius: $border-radius;
 }
+
+@mixin button-styles(
+  $bg-color,
+  $text-color,
+  $border-color,
+  $hover-bg-color,
+  $hover-text-color,
+  $outline-color
+) {
+  min-width: 80px;
+  height: 2.25rem;
+  padding: 0 1rem;
+  border: 1px solid $border-color;
+  border-radius: 0.25rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $bg-color;
+  color: $text-color;
+
+  &:hover,
+  &:focus {
+    background-color: $hover-bg-color;
+    color: $hover-text-color;
+    outline-offset: 1px;
+    outline: 2px solid $outline-color;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+  }
+}
