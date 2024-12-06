@@ -4,6 +4,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductCategoryFormComponent } from './product-category/product-category-form/product-category-form.component';
 import { FormsModule } from "@angular/forms";
+import { ProductsRoutingModule } from "./products-routing.module";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from "@angular/forms";
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ProductsRoutingModule
   ]
 })
 export class ProductsModule { }

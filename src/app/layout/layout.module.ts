@@ -14,14 +14,14 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     FooterComponent,
     SidebarComponent
   ],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive
+  ],
   exports: [
     LayoutComponent
-  ],
-    imports: [
-        CommonModule,
-        RouterOutlet,
-        RouterLink,
-        RouterLinkActive
-    ]
+  ]
 })
 export class LayoutModule { }
