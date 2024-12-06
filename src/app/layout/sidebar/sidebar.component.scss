@@ -20,10 +20,6 @@
     padding: $sidebar-spacing-x;
     height: calc(100vh - 80px);
     border-radius: $border-radius;
-
-    .simplebar-track.simplebar-horizontal {
-      visibility: hidden !important;
-    }
   }
 
   @include respond-to(xxl) {
@@ -109,7 +105,7 @@
           }
 
           .ti {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
           }
         }
 
@@ -145,7 +141,7 @@
 
         .ti {
           flex-shrink: 0;
-          font-size: 25px;
+          font-size: 1.25rem;
         }
 
         &:hover {

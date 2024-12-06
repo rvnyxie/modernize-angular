@@ -4,10 +4,14 @@
 
 .layout-wrapper {
   display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .layout-main {
   flex-grow: 1;
+  overflow: scroll;
 
   .content {
     padding: 1rem 1rem;
