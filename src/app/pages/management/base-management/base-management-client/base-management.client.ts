@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from "../../../../auth/auth.service";
+import { GetPaginationBody } from "../../../../shared/model/get-pagination-body.model";
 
 @Injectable()
 export abstract class BaseManagementClient<EntityType, CreationOrUpdateType> {
@@ -18,8 +19,7 @@ export abstract class BaseManagementClient<EntityType, CreationOrUpdateType> {
   /**
    * Get list with filter
    */
-  public getList(filter: any = null, isActive: boolean | null = null, skipCount: number = 0, maxResultCount: number = 10) {
-    const body = { filter, isActive, skipCount, maxResultCount };
+  public getList(body: GetPaginationBody) {
     return this.httpClient.post(this.getApiUrl, body, {
       headers: this.getHeaders(),
     });

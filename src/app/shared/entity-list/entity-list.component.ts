@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import {
-  BaseManagementClient
-} from "../../pages/management/base-management/base-management-client/base-management.client";
 
 @Component({
   selector: 'ord-entity-list',
@@ -13,6 +10,9 @@ export class EntityListComponent implements OnInit {
   @Input() entityName!: string;
   @Input() columns: any[] = [];
   @Input() data: any[] = [];
+
+  // Pagination Inputs
+  @Input() recordsPerPage!: number;
 
   @Output() addRow = new EventEmitter<any>();
   @Output() editRow = new EventEmitter<any>();
@@ -32,19 +32,19 @@ export class EntityListComponent implements OnInit {
   totalRecordsCount: number = 0;
   firstRecordIndex: number = 0;
   lastRecordIndex: number = 0;
+  _recordsPerPage: number = this.recordsPerPage;
 
   searchTerm: string = '';
 
-  constructor(private formBuilder: FormBuilder,
-              ) {
+  constructor(private formBuilder: FormBuilder) {
     // Create form for pagination
     this.form = this.formBuilder.group({
-      pageSize: this.formBuilder.control(10, { nonNullable: true }),
+      pageSize: this.formBuilder.control(this._recordsPerPage, { nonNullable: true }),
     })
 
     // Listen to page size change
     this.form.get("pageSize")?.valueChanges.subscribe((pageSize: number) => {
-      console.log("pageSize", pageSize);
+      this.recordsPerPage = pageSize;
     })
   }
 

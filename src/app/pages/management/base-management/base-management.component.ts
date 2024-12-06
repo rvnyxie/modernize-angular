@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseManagementClient } from "./base-management-client/base-management.client";
 import { ColumnInfoUsedForGeneration } from "../columns-config";
+import { GetPaginationBody } from "../../../shared/model/get-pagination-body.model";
 
 @Component({
   selector: 'ord-base-management',
@@ -20,6 +21,10 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
   isFormVisible = false;
   isFormEditing = false;
 
+  // Pagination
+  recordsPerPage = 20;
+  currentPage = 1;
+
   ngOnInit() {
     this.loadData();
   }
@@ -28,7 +33,14 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
    * Load data
    */
   loadData() {
-    this.dataClient.getList().subscribe({
+    const getPaginationBody: GetPaginationBody = {
+      filter: null,
+      isActive: null,
+      skipCount: this.currentPage,
+      maxResultCount: this.recordsPerPage
+    }
+
+    this.dataClient.getList(getPaginationBody).subscribe({
       next: (response: any) => {
         this.data = response.items;
       },
