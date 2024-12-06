@@ -112,6 +112,38 @@
         </tbody>
       </table>
     </div>
+
+    <!-- Pagination -->
+    <div class="table-pagination">
+      <div class="total-records">
+        <span>Tổng số bản ghi:
+          <span class="strong-color">{{ totalRecordsCount }}</span>
+        </span>
+      </div>
+      <div class="pagination-actions">
+        <div class="quantity-each">
+          <span>Số bản ghi/trang:</span>
+          <ord-dropdown
+            [isReadOnly]="true"
+            [isContentFit]="true"
+            [items]="[{label: '10', value: 10}, {label: '20', value: 20}, {label: '10000', value: 10000}]"
+            [formControl]="form.controls.pageSize"
+          ></ord-dropdown>
+        </div>
+        <div class="record-index">
+          <span class="strong-color">{{ firstRecordIndex }} - {{ lastRecordIndex }}</span>
+          <span>bản ghi</span>
+        </div>
+        <div class="pagination-navigation">
+          <div class="back strong-color" [class.disabled]="true">
+            <span><i class="ti ti-chevron-left"></i></span>
+          </div>
+          <div class="forward strong-color" [class.disabled]="false">
+            <span><i class="ti ti-chevron-right"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

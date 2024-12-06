@@ -1,4 +1,13 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Component({
@@ -11,10 +20,14 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from "@angular/f
     multi: true
   }]
 })
-export class DropdownComponent implements ControlValueAccessor{
+export class DropdownComponent implements ControlValueAccessor, AfterViewInit {
   @Input() items: { label: string, value: any }[] = [];
   @Input() placeholder: string = "Default placeholder";
   @Input() isReadOnly: boolean = false;
+  @Input() isContentFit: boolean = false;
+  @Output() valueChange = new EventEmitter();
+
+  @ViewChild("dropdownContainer") dropdownContainer!: ElementRef;
 
   isDropdownOpen = false;
   isDisabled = false;
@@ -48,6 +61,36 @@ export class DropdownComponent implements ControlValueAccessor{
         }
       }
     });
+  }
+
+  ngAfterViewInit() {
+    // Adjust the dropdown size based on its current content
+    // Only available for when set it readonly and fit content
+    setTimeout(() => {
+      if (this.isReadOnly && this.isContentFit) {
+        this.adjustDropdownWidth();
+      }
+    });
+  }
+
+  adjustDropdownWidth() {
+    if (this.dropdownContainer && this.items) {
+      const hiddenElement = document.createElement('div');
+      hiddenElement.style.visibility = 'hidden';
+      hiddenElement.style.position = 'absolute';
+      hiddenElement.style.whiteSpace = 'nowrap';
+
+      this.items.forEach(item => {
+        const option = document.createElement('span');
+        option.innerText = item.label;
+        hiddenElement.appendChild(option);
+      });
+
+      document.body.appendChild(hiddenElement);
+      const width = hiddenElement.getBoundingClientRect().width;
+      this.dropdownContainer.nativeElement.style.width = `${width + 36}px`;
+      document.body.removeChild(hiddenElement);
+    }
   }
 
   writeValue(value: any): void {
@@ -111,6 +154,7 @@ export class DropdownComponent implements ControlValueAccessor{
     this.searchControl.setValue(item.label, { emitEvent: false });
     this.activeIndex = index;
     this.onChange(item.value); // Notify parent form
+    this.valueChange.emit(item.value);
     this.onTouched(); // Mark as touched
     this.isDropdownOpen = false;
   }

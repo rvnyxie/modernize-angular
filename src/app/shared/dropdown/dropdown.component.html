@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="dropdown-custom" #dropdownContainer>
   <input
     #searchInput
     type="text"
@@ -14,7 +14,7 @@
   <span class="input-chevron" (click)="toggleDropdownMenu()">
     <i class="ti ti-chevron-down"></i>
   </span>
-  <ul class="dropdown-menu-custom" *ngIf="isDropdownOpen">
+  <ul class="dropdown-menu-custom" *ngIf="isDropdownOpen" #dropdownMenu>
     <li
       *ngFor="let item of filteredItems; let idx = index"
       (click)="selectItem(item, idx)"

@@ -1,12 +1,21 @@
 @import "styles/abstracts/variables";
 @import "styles/abstracts/mixins";
 
-.dropdown {
+.dropdown-custom {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
   width: 100%;
+  border: 1px solid $input-border-color;
+  border-radius: $border-radius;
+
 
   input {
     @include input-style;
+    flex-grow: 1;
+    border: none;
+    padding-right: 0;
   }
 
   input.readonly {
@@ -14,11 +23,13 @@
   }
 
   .input-chevron {
-    position: absolute;
-    top: 6px;
-    right: 0.5rem;
-    bottom: 0;
-    margin: auto;
+    flex: 0 0 2.25rem;
+    border-left: 1px solid $input-border-color;
+    border-radius: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .input-chevron .ti {
@@ -33,6 +44,7 @@
     padding: 0;
     margin: 0.25rem 0;
     width: 100%;
+    white-space: nowrap;
     max-height: 200px;
     overflow-y: auto;
     background-color: $white;

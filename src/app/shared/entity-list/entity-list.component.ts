@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import {
+  BaseManagementClient
+} from "../../pages/management/base-management/base-management-client/base-management.client";
 
 @Component({
   selector: 'ord-entity-list',
@@ -21,9 +25,27 @@ export class EntityListComponent implements OnInit {
   dialogTitle!: string;
   dialogDescription!: string;
 
+  // Pagination
+  form!: FormGroup<{
+    pageSize: FormControl<number>;
+  }>;
+  totalRecordsCount: number = 0;
+  firstRecordIndex: number = 0;
+  lastRecordIndex: number = 0;
+
   searchTerm: string = '';
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder,
+              ) {
+    // Create form for pagination
+    this.form = this.formBuilder.group({
+      pageSize: this.formBuilder.control(10, { nonNullable: true }),
+    })
+
+    // Listen to page size change
+    this.form.get("pageSize")?.valueChanges.subscribe((pageSize: number) => {
+      console.log("pageSize", pageSize);
+    })
   }
 
   ngOnInit() {
