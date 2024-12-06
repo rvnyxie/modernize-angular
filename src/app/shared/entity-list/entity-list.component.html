@@ -135,10 +135,10 @@
           <span>bản ghi</span>
         </div>
         <div class="pagination-navigation">
-          <div class="back strong-color" [class.disabled]="true">
+          <div class="back strong-color" [class.disabled]="true" (click)="onMoveBackPage()">
             <span><i class="ti ti-chevron-left"></i></span>
           </div>
-          <div class="forward strong-color" [class.disabled]="false">
+          <div class="forward strong-color" [class.disabled]="false" (click)="onMoveForwardPage()">
             <span><i class="ti ti-chevron-right"></i></span>
           </div>
         </div>

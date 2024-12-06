@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 @Component({
@@ -6,7 +15,7 @@ import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
   templateUrl: './entity-list.component.html',
   styleUrl: './entity-list.component.scss'
 })
-export class EntityListComponent implements OnInit {
+export class EntityListComponent implements OnInit, OnChanges {
   @Input() entityName!: string;
   @Input() columns: any[] = [];
   @Input() data: any[] = [];
@@ -15,6 +24,8 @@ export class EntityListComponent implements OnInit {
   @Input() recordsPerPage!: number;
   @Output() recordsPerPageChange = new EventEmitter<number>();
   @Input() totalRecordsCount!: number;
+  @Input() currentPage!: number;
+  @Output() currentPageChange = new EventEmitter<number>();
 
   @Output() addRow = new EventEmitter<any>();
   @Output() editRow = new EventEmitter<any>();
@@ -50,6 +61,22 @@ export class EntityListComponent implements OnInit {
       this.recordsPerPage = pageSize;
       this.recordsPerPageChange.emit(this.recordsPerPage);
     })
+
+    this.calculateRecordIndices();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["totalRecordsCount"] || changes["recordsPerPage"] || changes["currentPage"]) {
+      this.calculateRecordIndices();
+    }
+  }
+
+  /**
+   * Calculate the indices in pagination
+   */
+  private calculateRecordIndices() {
+    this.firstRecordIndex = (this.currentPage - 1) * this.recordsPerPage + 1;
+    this.lastRecordIndex = Math.min(this.currentPage * this.recordsPerPage, this.totalRecordsCount);
   }
 
   onSearch(): void {
@@ -112,5 +139,22 @@ export class EntityListComponent implements OnInit {
   onDeleteRow(row: any) {
     console.log('onDeleteRow', row);
     this.deleteRow.emit(row);
+  }
+
+  /**
+   * Handle back action in pagination
+   */
+  onMoveBackPage() {
+    this.currentPage = Math.max(1, this.currentPage - 1);
+    this.currentPageChange.emit(this.currentPage);
+  }
+
+  /**
+   * Handle forward action in pagination
+   */
+  onMoveForwardPage() {
+    const maxPage: number = Math.ceil(this.totalRecordsCount / this.recordsPerPage);
+    this.currentPage = Math.min(maxPage, this.currentPage + 1);
+    this.currentPageChange.emit(this.currentPage);
   }
 }

@@ -34,7 +34,17 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
     }
   }
 
-  currentPage = 1;
+  // Handle actions with changing current page
+  private _currentPage = 1;
+  get currentPage(): number {
+    return this._currentPage;
+  }
+  set currentPage(value: number) {
+    if (this._currentPage !== value) {
+      this._currentPage = value;
+      this.loadData();
+    }
+  }
   totalRecordsCount: number = 0;
 
 
@@ -49,8 +59,8 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
     const getPaginationBody: GetPaginationBody = {
       filter: null,
       isActive: null,
-      skipCount: this.currentPage,
-      maxResultCount: this.recordsPerPage
+      skipCount: this._currentPage,
+      maxResultCount: this._recordsPerPage
     }
 
     this.dataClient.getList(getPaginationBody).subscribe({
