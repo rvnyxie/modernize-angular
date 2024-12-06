@@ -103,7 +103,7 @@
               <button class="button-edit" (click)="onEditRow(row)">
                 <i class="ti ti-edit"></i>
               </button>
-              <button class="button-delete" (click)="onDeleteRow(row)">
+              <button class="button-delete" (click)="openDialogForDeletion(row)">
                 <i class="ti ti-trash"></i>
               </button>
             </div>
@@ -114,3 +114,14 @@
     </div>
   </div>
 </div>
+
+<ord-dialog
+  [title]="dialogTitle"
+  [isOpen]="isDialogOpen"
+  (cancel)="onDialogCancel()"
+  (confirm)="onDialogConfirm()"
+>
+  <div dialogContent>
+    {{ dialogDescription }}
+  </div>
+</ord-dialog>

@@ -6,8 +6,22 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, View
   styleUrl: './dialog.component.scss'
 })
 export class DialogComponent implements AfterViewInit {
+  private _isOpen: boolean = false;
+
   @Input() title: string = "Default dialog title";
-  @Input() isOpen: boolean = false;
+  @Input()
+  set isOpen(value: boolean) {
+    this._isOpen = value;
+    if (value) {
+      // Wait for the view to render before focusing
+      setTimeout(() => {
+        this.cancelBtn?.nativeElement.focus();
+      });
+    }
+  }
+  get isOpen(): boolean {
+    return this._isOpen;
+  }
 
   @Output() cancel = new EventEmitter();
   @Output() confirm = new EventEmitter();
