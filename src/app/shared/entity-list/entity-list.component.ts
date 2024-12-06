@@ -14,6 +14,7 @@ export class EntityListComponent implements OnInit {
   // Pagination Inputs
   @Input() recordsPerPage!: number;
   @Output() recordsPerPageChange = new EventEmitter<number>();
+  @Input() totalRecordsCount!: number;
 
   @Output() addRow = new EventEmitter<any>();
   @Output() editRow = new EventEmitter<any>();
@@ -30,7 +31,6 @@ export class EntityListComponent implements OnInit {
   form!: FormGroup<{
     pageSize: FormControl<number>;
   }>;
-  totalRecordsCount: number = 0;
   firstRecordIndex: number = 0;
   lastRecordIndex: number = 0;
 

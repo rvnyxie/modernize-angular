@@ -35,6 +35,8 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
   }
 
   currentPage = 1;
+  totalRecordsCount: number = 0;
+
 
   ngOnInit() {
     this.loadData();
@@ -53,6 +55,7 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
 
     this.dataClient.getList(getPaginationBody).subscribe({
       next: (response: any) => {
+        this.totalRecordsCount = response.totalCount;
         this.data = response.items;
       },
       error: (err: any) => {
