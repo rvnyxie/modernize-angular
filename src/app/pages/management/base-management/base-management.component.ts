@@ -22,7 +22,18 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
   isFormEditing = false;
 
   // Pagination
-  recordsPerPage = 20;
+  // Handle actions with changing records page size
+  private _recordsPerPage = 10;
+  get recordsPerPage(): number {
+    return this._recordsPerPage;
+  }
+  set recordsPerPage(value: number) {
+    if (this._recordsPerPage !== value) {
+      this._recordsPerPage = value;
+      this.loadData();
+    }
+  }
+
   currentPage = 1;
 
   ngOnInit() {

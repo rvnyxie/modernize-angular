@@ -13,6 +13,7 @@ export class EntityListComponent implements OnInit {
 
   // Pagination Inputs
   @Input() recordsPerPage!: number;
+  @Output() recordsPerPageChange = new EventEmitter<number>();
 
   @Output() addRow = new EventEmitter<any>();
   @Output() editRow = new EventEmitter<any>();
@@ -32,23 +33,23 @@ export class EntityListComponent implements OnInit {
   totalRecordsCount: number = 0;
   firstRecordIndex: number = 0;
   lastRecordIndex: number = 0;
-  _recordsPerPage: number = this.recordsPerPage;
 
   searchTerm: string = '';
 
   constructor(private formBuilder: FormBuilder) {
+  }
+
+  ngOnInit() {
     // Create form for pagination
     this.form = this.formBuilder.group({
-      pageSize: this.formBuilder.control(this._recordsPerPage, { nonNullable: true }),
+      pageSize: this.formBuilder.control(this.recordsPerPage, { nonNullable: true }),
     })
 
     // Listen to page size change
     this.form.get("pageSize")?.valueChanges.subscribe((pageSize: number) => {
       this.recordsPerPage = pageSize;
+      this.recordsPerPageChange.emit(this.recordsPerPage);
     })
-  }
-
-  ngOnInit() {
   }
 
   onSearch(): void {
