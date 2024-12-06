@@ -22,6 +22,15 @@
   padding: 0.5rem 1.75rem 0.5rem 0.75rem;
   border: 1px solid $input-border-color;
   border-radius: $border-radius;
+
+  &:hover {
+    background-color: $gray-200;
+  }
+
+  &:focus {
+    outline-offset: 1px;
+    outline: 1px solid $primary;
+  }
 }
 
 @mixin button-styles(
