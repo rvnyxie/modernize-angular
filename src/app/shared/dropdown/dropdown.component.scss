@@ -4,38 +4,42 @@
 .dropdown-custom {
   position: relative;
   width: 100%;
-  border: 1px solid $input-border-color;
-  border-radius: $border-radius;
 
-  input {
-    @include input-style;
-    border: none;
-    padding-right: 2.25rem;
+  label {
+    margin-bottom: 0.25rem;
   }
 
-  input.readonly {
-    cursor: pointer;
-  }
+  .input-container {
+    width: 100%;
 
-  .input-chevron {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-left: 1px solid $input-border-color;
-    border-radius: 0;
-    cursor: pointer;
+    input {
+      @include input-style;
+      padding-right: 2.25rem;
+    }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    input.readonly {
+      cursor: pointer;
+    }
 
-  .input-chevron .ti {
-    font-size: 1.25rem;
+    .input-chevron {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-left: 1px solid $input-border-color;
+      border-radius: 0;
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .input-chevron .ti {
+      font-size: 1.25rem;
+    }
   }
 
   .dropdown-menu-custom {

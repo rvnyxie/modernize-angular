@@ -4,8 +4,8 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  Input,
-  Output,
+  Input, OnChanges,
+  Output, SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from "@angular/forms";
@@ -20,18 +20,19 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from "@angular/f
     multi: true
   }]
 })
-export class DropdownComponent implements ControlValueAccessor, AfterViewInit {
+export class DropdownComponent implements ControlValueAccessor, AfterViewInit, OnChanges {
   @Input() items: { label: string, value: any }[] = [];
   @Input() placeholder: string = "Default placeholder";
   @Input() isReadOnly: boolean = false;
   @Input() isContentFit: boolean = false;
+  @Input() label: { id: string | null; name: string | null; } = { id: null, name: null };
   @Output() valueChange = new EventEmitter();
 
   @ViewChild("dropdownContainer") dropdownContainer!: ElementRef;
 
   isDropdownOpen = false;
   isDisabled = false;
-  filteredItems: { label: string, value: any }[] = [];
+  filteredItems: { label: string, value: any }[] = [...this.items];
   selectedItems: { label: string, value: any }[] = [];
   activeIndex = 0;
 
@@ -73,6 +74,9 @@ export class DropdownComponent implements ControlValueAccessor, AfterViewInit {
     });
   }
 
+  /**
+   * Adjust dropdown width dynamically based on it's content
+   */
   adjustDropdownWidth() {
     if (this.dropdownContainer && this.items) {
       const hiddenElement = document.createElement('div');
@@ -93,9 +97,20 @@ export class DropdownComponent implements ControlValueAccessor, AfterViewInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // Items data passed from parent may be async value, so we track the value change and update the filtered list
+    if (changes["items"]) {
+      this.filteredItems = [...this.items];
+    }
+  }
+
   writeValue(value: any): void {
-    const selectedItem = this.items.find(item => item.value === value);
-    this.searchControl.setValue(selectedItem?.label || '', { emitEvent: false });
+    if (value) {
+      const selectedItem = this.items.find(item => item.value === value);
+      this.searchControl.setValue(selectedItem?.label || '', { emitEvent: false });
+    } else {
+      this.filteredItems = [...this.items];
+    }
 
     if (this.isReadOnly) {
       this.filteredItems = [...this.items];

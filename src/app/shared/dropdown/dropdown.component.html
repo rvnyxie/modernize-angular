@@ -1,19 +1,23 @@
 <div class="dropdown-custom" #dropdownContainer>
-  <input
-    #searchInput
-    type="text"
-    [readOnly]="isReadOnly"
-    [placeholder]="placeholder"
-    [class.disabled]="isDisabled"
-    [class.readonly]="isReadOnly"
-    [formControl]="searchControl"
-    (input)="onSearch(searchInput.value)"
-    (keydown)="onKeyDown($event)"
-    (click)="onInputClick()"
-  />
-  <span class="input-chevron" (click)="toggleDropdownMenu()">
-    <i class="ti ti-chevron-down"></i>
-  </span>
+  <label *ngIf="label.id" [attr.for]="label.id">{{ label.name }}</label>
+  <div class="input-container">
+    <input
+      #searchInput
+      [attr.id]="label.id"
+      type="text"
+      [readOnly]="isReadOnly"
+      [placeholder]="placeholder"
+      [class.disabled]="isDisabled"
+      [class.readonly]="isReadOnly"
+      [formControl]="searchControl"
+      (input)="onSearch(searchInput.value)"
+      (keydown)="onKeyDown($event)"
+      (click)="onInputClick()"
+    />
+    <span class="input-chevron" (click)="toggleDropdownMenu()">
+      <i class="ti ti-chevron-down"></i>
+    </span>
+  </div>
   <ul class="dropdown-menu-custom" *ngIf="isDropdownOpen" #dropdownMenu>
     <li
       *ngFor="let item of filteredItems; let idx = index"
