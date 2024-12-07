@@ -50,6 +50,7 @@ export class CommunesComponent extends BaseManagementComponent<Commune> implemen
               private communesClient: CommunesClient,
               private formBuilder: FormBuilder) {
     super();
+    console.log(this.searchForm.value)
   }
 
   override ngOnInit() {
@@ -87,6 +88,7 @@ export class CommunesComponent extends BaseManagementComponent<Commune> implemen
 
   onResetSearch() {
     console.log("onResetSearch");
+    this.searchForm.reset();
   }
 
   onSearch() {

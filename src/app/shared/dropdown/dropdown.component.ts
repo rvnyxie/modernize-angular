@@ -109,7 +109,10 @@ export class DropdownComponent implements ControlValueAccessor, AfterViewInit, O
       const selectedItem = this.items.find(item => item.value === value);
       this.searchControl.setValue(selectedItem?.label || '', { emitEvent: false });
     } else {
+      // Handle null or undefined values (e.g., when the form is reset)
+      this.searchControl.setValue("", { emitEvent: false });
       this.filteredItems = [...this.items];
+      this.activeIndex = -1;
     }
 
     if (this.isReadOnly) {

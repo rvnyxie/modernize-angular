@@ -67,6 +67,7 @@ export class DistrictsComponent extends BaseManagementComponent<District> implem
 
   onResetSearch() {
     console.log("onResetSearch");
+    this.searchForm.reset();
   }
 
   onSearch() {
