@@ -4,6 +4,8 @@ import { AuthService } from "../../../../auth/auth.service";
 import { District } from "../model/district.model";
 import { DistrictCreation } from "../model/district-creation.model";
 import { BaseManagementClient } from "../../base-management/base-management-client/base-management.client";
+import { ProvincesClient } from "../../provinces/client/provinces.client";
+import { catchError, map, Observable, throwError } from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +18,36 @@ export class DistrictsClient extends BaseManagementClient<District, DistrictCrea
   constructor(httpClient: HttpClient,
               authService: AuthService,) {
     super(httpClient, authService);
+  }
+
+  /**
+   * Get all districts by province's ID
+   * @param provinceId Province's ID
+   */
+  getAllDistrictsByProvinceId(provinceId: string){
+    const url = "http://test.nghiencuukhoahoc.com.vn/api/master-data/select-data-source/get-combo-data-source";
+    const body = {
+      type: 2,
+      cascader: provinceId
+    }
+
+    return this.httpClient.post<any[]>(url, body, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.authService.getAccessToken()}`,
+      }
+    }).pipe(
+      map((response: any[]) => {
+        return response.map(item => ({
+          label: item.displayText,
+          value: item.value
+        }));
+      }),
+      catchError(err => {
+        console.error("Failed to fetch districts:", err);
+        return throwError(() => err);
+      })
+    );
   }
 
   /**

@@ -43,7 +43,6 @@ export class ProvincesComponent extends BaseManagementComponent<Province> implem
   override ngOnInit() {
     this.provincesClient.getAllProvinces().subscribe({
       next: (provinces) => {
-        console.log("Provinces:", provinces);
         this.provincesForDropdown = provinces;
       },
       error: (err) => {

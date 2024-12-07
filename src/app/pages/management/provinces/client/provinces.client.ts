@@ -19,6 +19,9 @@ export class ProvincesClient extends BaseManagementClient<Province, ProvinceCrea
     super(httpClient, authService);
   }
 
+  /**
+   * Get all provinces
+   */
   getAllProvinces() {
     const url = "http://test.nghiencuukhoahoc.com.vn/api/master-data/select-data-source/get-combo-data-source"
     const body = {
