@@ -51,10 +51,10 @@ export class DistrictsComponent extends BaseManagementComponent<District> implem
       }
     })
 
-    // Track changes in searchProvince, get corresponding districts
-    this.searchForm.controls.searchProvince.valueChanges.subscribe(value => {
-      if (value) {
-        this.districtClient.getAllDistrictsByProvinceId(value).subscribe({
+    // Track changes in province search, get corresponding districts
+    this.searchForm.controls.searchProvince.valueChanges.subscribe(provinceId => {
+      if (provinceId) {
+        this.districtClient.getAllDistrictsByProvinceId(provinceId).subscribe({
           next: (districts) => {
             this.districtsForDropdown = districts;
           }

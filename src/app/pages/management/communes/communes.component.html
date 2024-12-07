@@ -9,56 +9,52 @@
   (editRow)="editEntity($event)"
   (deleteRow)="deleteEntity($event)"
 >
-  <!-- Search Inputs -->
-  <div searchInputs class="input-container">
-    <div class="input-wrapper">
-      <label for="searchInput">Từ khóa tìm kiếm</label>
-      <input
-        id="searchInput"
-        type="text"
-        [(ngModel)]="searchInputTerm"
-        placeholder="Nhập mã, tên để tìm kiếm"
-      >
-    </div>
-    <div class="input-wrapper">
-      <label for="provinceSearch">Tỉnh, thành phố</label>
-      <input
-        id="provinceSearch"
-        type="text"
-        [(ngModel)]="searchProvinceTerm"
-        placeholder="Chọn tỉnh, thành phố"
-      >
-    </div>
-    <div class="input-wrapper">
-      <label for="districtSearch">Quận, huyện</label>
-      <input
-        id="districtSearch"
-        type="text"
-        [(ngModel)]="searchDistrictTerm"
-        placeholder="Chọn quận, huyện"
-      >
-    </div>
-    <div class="input-wrapper">
-      <label for="communeSearch">Xã, phường</label>
-      <input
-        id="communeSearch"
-        type="text"
-        [(ngModel)]="searchDistrictTerm"
-        placeholder="Chọn xã, phường"
-      >
-    </div>
-  </div>
+  <!-- Communes Search Form -->
+  <div searchForm>
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <!-- Search Inputs -->
+      <div class="input-container">
+        <div class="input-wrapper">
+          <label for="searchInput">Từ khóa tìm kiếm</label>
+          <input
+            id="searchInput"
+            type="text"
+            [formControl]="searchForm.controls.searchInput"
+            placeholder="Nhập mã, tên để tìm kiếm"
+          >
+        </div>
+        <ord-dropdown
+          placeholder="Chọn tỉnh, thành phố"
+          [label]="{ id: 'provinceDropdown', name: 'Chọn tỉnh, thành phố' }"
+          [items]="provincesForDropdown"
+          [formControl]="searchForm.controls.searchProvince"
+        ></ord-dropdown>
+        <ord-dropdown
+          placeholder="Chọn quận, huyện tương ứng với tỉnh"
+          [label]="{ id: 'districtDropdown', name: 'Chọn quận, huyện' }"
+          [items]="districtsForDropdown"
+          [formControl]="searchForm.controls.searchDistrict"
+        ></ord-dropdown>
+        <ord-dropdown
+          placeholder="Chọn xã phường tương ứng với quận huyện"
+          [label]="{ id: 'communeDropdown', name: 'Chọn xã phường' }"
+          [items]="communesForDropdown"
+          [formControl]="searchForm.controls.searchCommune"
+        ></ord-dropdown>
+      </div>
 
-  <!-- Search Buttons -->
-  <div searchButtons class="button-group">
-    <button class="button button-reset" (click)="onResetSearch()">
-      <span><i class="ti ti-reload"></i></span>
-      <span>Đặt lại</span>
-    </button>
-    <button class="button button-search" (click)="onSearch()">
-      <span><i class="ti ti-search"></i></span>
-      <span>Tìm kiếm</span>
-    </button>
+      <!-- Search Buttons -->
+      <div class="button-group">
+        <button type="button" class="button button-reset" (click)="onResetSearch()">
+          <span><i class="ti ti-reload"></i></span>
+          <span>Đặt lại</span>
+        </button>
+        <button type="submit" class="button button-search">
+          <span><i class="ti ti-search"></i></span>
+          <span>Tìm kiếm</span>
+        </button>
+      </div>
+    </form>
   </div>
 </ord-entity-list>
 <ord-entity-form
