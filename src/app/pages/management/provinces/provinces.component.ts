@@ -24,7 +24,18 @@ export class ProvincesComponent extends BaseManagementComponent<Province>{
   columns = columnsConfig["province"];
   dataClient = this.provincesClient;
 
+  searchInputTerm = "";
+  searchProvinceTerm = "";
+
   constructor(private provincesClient: ProvincesClient) {
     super();
+  }
+
+  onResetSearch() {
+    console.log("onResetSearch");
+  }
+
+  onSearch() {
+    console.log("onSearch");
   }
 }

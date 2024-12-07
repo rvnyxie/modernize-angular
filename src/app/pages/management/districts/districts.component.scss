@@ -1,0 +1,56 @@
+@import "styles/abstracts/mixins";
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+
+  .input-wrapper {
+    flex: 1;
+
+    label {
+      margin-bottom: 0.25rem;
+    }
+
+    input {
+      @include input-style;
+    }
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+
+    &.button-reset {
+      @include button-styles(
+          $white,            // Background color
+          $black,            // Text color
+          $black,            // Border color
+          darken($gray-500, 20%), // Hover/focus background color (dark gray)
+          $white,            // Hover/focus text color
+          $primary           // Outline color
+      );
+    }
+
+    &.button-search {
+      @include button-styles(
+          $primary,
+          $white,
+          $primary,
+          darken($primary, 15%),
+          $white,
+          $primary
+      );
+    }
+  }
+}

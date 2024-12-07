@@ -22,7 +22,20 @@ export class DistrictsComponent extends BaseManagementComponent<District>{
   columns = columnsConfig["district"];
   dataClient = this.districtClient;
 
+  // Search bar
+  searchInputTerm = "";
+  searchProvinceTerm = "";
+  searchDistrictTerm = "";
+
   constructor(private districtClient: DistrictsClient) {
     super();
+  }
+
+  onResetSearch() {
+    console.log("onResetSearch");
+  }
+
+  onSearch() {
+    console.log("onSearch");
   }
 }

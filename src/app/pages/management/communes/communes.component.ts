@@ -26,7 +26,21 @@ export class CommunesComponent extends BaseManagementComponent<Commune>{
   columns = columnsConfig["commune"];
   dataClient = this.communesClient;
 
+  // Search bar
+  searchInputTerm = "";
+  searchProvinceTerm = "";
+  searchDistrictTerm = "";
+  searchCommuneTerm = "";
+
   constructor(private communesClient: CommunesClient) {
     super();
+  }
+
+  onResetSearch() {
+    console.log("onResetSearch");
+  }
+
+  onSearch() {
+    console.log("onSearch");
   }
 }

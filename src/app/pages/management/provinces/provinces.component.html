@@ -8,7 +8,41 @@
   (addRow)="addEntity()"
   (editRow)="editEntity($event)"
   (deleteRow)="deleteEntity($event)"
-></ord-entity-list>
+>
+  <!-- Search Inputs -->
+  <div searchInputs class="input-container">
+    <div class="input-wrapper">
+      <label for="searchInput">Từ khóa tìm kiếm</label>
+      <input
+        id="searchInput"
+        type="text"
+        [(ngModel)]="searchInputTerm"
+        placeholder="Nhập mã, tên để tìm kiếm"
+      >
+    </div>
+    <div class="input-wrapper">
+      <label for="provinceSearch">Tỉnh, thành phố</label>
+      <input
+        id="provinceSearch"
+        type="text"
+        [(ngModel)]="searchProvinceTerm"
+        placeholder="Chọn tỉnh, thành phố"
+      >
+    </div>
+  </div>
+
+  <!-- Search Buttons -->
+  <div searchButtons class="button-group">
+    <button class="button button-reset" (click)="onResetSearch()">
+      <span><i class="ti ti-reload"></i></span>
+      <span>Đặt lại</span>
+    </button>
+    <button class="button button-search" (click)="onSearch()">
+      <span><i class="ti ti-search"></i></span>
+      <span>Tìm kiếm</span>
+    </button>
+  </div>
+</ord-entity-list>
 <ord-entity-form
   *ngIf="isFormVisible"
   [title]="isFormEditing ? 'Sửa thông tin tỉnh' : 'Tạo tỉnh mới'"

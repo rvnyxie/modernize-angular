@@ -13,59 +13,65 @@
   <div class="search-bar-container">
     <h2>Thông tin tìm kiếm</h2>
     <div class="search-bar">
-      <!-- Search Inputs -->
-      <div class="input-group">
-        <div class="input-wrapper">
-          <label for="searchInput">Từ khóa tìm kiếm</label>
-          <input
-            id="searchInput"
-            type="text"
-            class="form-control"
-            [(ngModel)]="searchTerm"
-            placeholder="Nhập mã, tên để tìm kiếm"
-            (input)="onSearch()"
-          >
-        </div>
-        <div class="input-wrapper">
-          <label for="provinceSearch">Tỉnh, thành phố</label>
-          <input
-            id="provinceSearch"
-            type="text"
-            class="form-control"
-            [(ngModel)]="searchTerm"
-            placeholder="Chọn tỉnh, thành phố"
-            (input)="onSearch()"
-          >
-        </div>
-        <div class="input-wrapper">
-          <label for="districtSearch">Quận, huyện</label>
-          <input
-            id="districtSearch"
-            type="text"
-            class="form-control"
-            [(ngModel)]="searchTerm"
-            placeholder="Chọn quận, huyện"
-            (input)="onSearch()"
-          >
-        </div>
+      <div class="search-inputs">
+        <ng-content select="[searchInputs]"></ng-content>
       </div>
+      <div class="search-buttons">
+        <ng-content select="[searchButtons]"></ng-content>
+      </div>
+      <!-- Search Inputs -->
+<!--      <div class="input-group">-->
+<!--        <div class="input-wrapper">-->
+<!--          <label for="searchInput">Từ khóa tìm kiếm</label>-->
+<!--          <input-->
+<!--            id="searchInput"-->
+<!--            type="text"-->
+<!--            class="form-control"-->
+<!--            [(ngModel)]="searchTerm"-->
+<!--            placeholder="Nhập mã, tên để tìm kiếm"-->
+<!--            (input)="onSearch()"-->
+<!--          >-->
+<!--        </div>-->
+<!--        <div class="input-wrapper">-->
+<!--          <label for="provinceSearch">Tỉnh, thành phố</label>-->
+<!--          <input-->
+<!--            id="provinceSearch"-->
+<!--            type="text"-->
+<!--            class="form-control"-->
+<!--            [(ngModel)]="searchTerm"-->
+<!--            placeholder="Chọn tỉnh, thành phố"-->
+<!--            (input)="onSearch()"-->
+<!--          >-->
+<!--        </div>-->
+<!--        <div class="input-wrapper">-->
+<!--          <label for="districtSearch">Quận, huyện</label>-->
+<!--          <input-->
+<!--            id="districtSearch"-->
+<!--            type="text"-->
+<!--            class="form-control"-->
+<!--            [(ngModel)]="searchTerm"-->
+<!--            placeholder="Chọn quận, huyện"-->
+<!--            (input)="onSearch()"-->
+<!--          >-->
+<!--        </div>-->
+<!--      </div>-->
 
       <!-- Search Button Group -->
-      <div class="search-btn-group">
-        <button class="btn btn-outline-dark">
-          <span>
-            <i class="ti ti-reload"></i>
-          </span>
-          <span>Reset</span>
-        </button>
-        <button class="btn btn-primary">
-          <span>
-            <i class="ti ti-search"></i>
-          </span>
-          <span>Search</span>
-        </button>
-      </div>
-    </div>
+<!--      <div class="search-btn-group">-->
+<!--        <button class="btn btn-outline-dark">-->
+<!--          <span>-->
+<!--            <i class="ti ti-reload"></i>-->
+<!--          </span>-->
+<!--          <span>Reset</span>-->
+<!--        </button>-->
+<!--        <button class="btn btn-primary">-->
+<!--          <span>-->
+<!--            <i class="ti ti-search"></i>-->
+<!--          </span>-->
+<!--          <span>Search</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 
   <hr>
