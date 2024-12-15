@@ -5,26 +5,27 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
   providedIn: 'root'
 })
 export class LoginClient {
-  private apiUrl: string = 'http://test.nghiencuukhoahoc.com.vn/api/app/account/login';
+  private loginUrl: string = 'https://localhost:7003/auth/login';
 
   constructor(private httpClient: HttpClient) {}
 
   /**
-   * Login with username and password
-   * @param username The username
+   * Login with email and password
+   * @param email The email
    * @param password The password
    * @returns Observable for the API response
    */
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     // Encode URL-encoded string
-    const body = new HttpParams()
-      .set('username', username)
-      .set('password', password);
+    const body = {
+      email: email,
+      password: password
+    }
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/json'
     });
 
-    return this.httpClient.post(this.apiUrl, body.toString(),{ headers });
+    return this.httpClient.post(this.loginUrl, body);
   }
 }

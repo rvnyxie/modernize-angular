@@ -19,7 +19,7 @@ export class LoginComponent {
   }
 
   loginForm = this.formBuilder.group({
-    username: ['', Validators.required],
+    email: ['', Validators.required],
     password: ['', Validators.required],
   });
 
@@ -27,21 +27,21 @@ export class LoginComponent {
    * Handle login submit action
    */
   onLoginSubmit(): void {
-    const { username, password } = this.loginForm.value;
+    const { email, password } = this.loginForm.value;
 
-    if (username && password) {
-      this.loginClient.login(username, password).subscribe({
+    if (email && password) {
+      this.loginClient.login(email, password).subscribe({
         next: (response: any) => {
           console.log('Login successfully', response);
           this.errorMessage = null;
-          const { access_token } = response;
+          const { accessToken } = response;
 
-          this.authService.setAccessToken(access_token);
+          this.authService.setAccessToken(accessToken);
           this.router.navigate(['/dashboard']).then();
         },
         error: (err) => {
           console.error('Login failed:', err);
-          this.errorMessage = 'Username or Password incorrect';
+          this.errorMessage = 'Incorrect email or password';
         }
       })
     }

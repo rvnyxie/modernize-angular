@@ -14,8 +14,14 @@
     width: 100%;
   }
 
+  .btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   .error-message {
     color: red;
     margin-top: 10px;
+    margin-bottom: 0.5rem;
   }
 }

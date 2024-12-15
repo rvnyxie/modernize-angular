@@ -2,13 +2,13 @@
   <h2>Login</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
     <div class="form-item">
-      <label for="username">Username</label>
+      <label for="email">Email</label>
       <input
         type="text"
-        id="username"
+        id="email"
         class="form-control"
-        name="username"
-        formControlName="username"
+        name="email"
+        formControlName="email"
         required
       />
     </div>
@@ -26,6 +26,9 @@
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button
+      type="submit" class="btn btn-primary"
+      [class.disabled]="loginForm.invalid"
+    >Login</button>
   </form>
 </div>

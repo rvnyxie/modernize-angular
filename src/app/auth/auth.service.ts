@@ -49,7 +49,59 @@ export class AuthService {
    */
   isLoggedIn() {
     const token = this.getAccessToken();
-    this.isAuthenticated = !!token;
-    return this.isAuthenticated;
+    if (token) {
+      const isTokenExpired = this.isTokenExpired(token);
+
+      return !isTokenExpired;
+    }
+
+    return false;
+  }
+
+  /**
+   * Check if token is expired
+   * @param token
+   * @return true if expired, false if not
+   */
+  isTokenExpired(token: string): boolean {
+    if (!token) {
+      console.error("Token is missing");
+      return false;
+    }
+
+    try {
+      // Split the token into parts (Header.Payload.Signature)
+      const payloadBase64 = token.split(".")[1];
+      if (!payloadBase64) {
+        console.error("Invalid token format");
+        return true;
+      }
+
+      // Decode the payload
+      const payload = JSON.parse(atob(payloadBase64));
+
+      // Get the expiration time (in seconds)
+      const expirationTime = payload.exp;
+      if (!expirationTime) {
+        console.error("Token does not contain exp field");
+        return true;
+      }
+
+      // Get the current time in seconds
+      const currentTime = Math.floor(Date.now() / 1000);
+
+      // Compare current time with expiration time
+      return currentTime >= expirationTime;
+    } catch (err) {
+      console.error("Error decoding token", err);
+      return true;
+    }
+  }
+
+  /**
+   * Do the logout in the scope of application
+   */
+  logout() {
+    this.clearAccessToken();
   }
 }
