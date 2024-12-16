@@ -1,54 +1,39 @@
-<!--&lt;!&ndash; Profile &ndash;&gt;-->
-<!--<div class="profile-container">-->
-<!--  &lt;!&ndash; Account List &ndash;&gt;-->
-<!--  <div class="account-list">-->
-<!--    <h3>List of Accounts</h3>-->
-<!--    <p>Accounts</p>-->
-<!--    <select name="accounts" id="account">-->
-<!--      <option value="Account 1">Account 1</option>-->
-<!--      <option value="Account 2">Account 2</option>-->
-<!--    </select>-->
-<!--  </div>-->
+<!-- Profile -->
+<div class="profile-container">
+  <!-- Profile -->
+  <div class="profile">
+    <!-- Profile Setting -->
+    <div class="profile-setting">
+      <h3>Profile Setting</h3>
 
-<!--  &lt;!&ndash; Account &ndash;&gt;-->
-<!--  <div class="account">-->
-<!--    &lt;!&ndash; Avatar &ndash;&gt;-->
-<!--    <div class="account-avatar">-->
-<!--      <h3>Change Avatar</h3>-->
-<!--      <img src="" alt="Account avatar">-->
-<!--      <input type="file" name="" id="">-->
-<!--&lt;!&ndash;      <button class="btn btn-danger" (click)="onUpdateAvatar()">UPLOAD NEW PHOTO</button>&ndash;&gt;-->
-<!--    </div>-->
+      <!-- Update profile form -->
+      <form [formGroup]="profileInfoForm" (ngSubmit)="onUpdateProfile()" class="update">
+        <div class="form-field">
+          <label for="username">Username</label>
+          <input type="text" id="username" class="" formControlName="username">
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="text" id="email" class="" formControlName="email">
+        </div>
+        <div class="form-field">
+          <label for="phone-number">Phone Number</label>
+          <input type="text" id="phone-number" class="" formControlName="phoneNumber">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="button button-cancel">Cancel</button>
+          <button type="submit" class="button button-confirm">Update your profile</button>
+        </div>
+      </form>
 
-<!--    &lt;!&ndash; Account Setting &ndash;&gt;-->
-<!--    <div class="account-setting">-->
-<!--      <h3>Account Setting</h3>-->
-<!--      <form [formGroup]="accountInfoForm" (ngSubmit)="onUpdateAccount()">-->
-<!--        <div class="form-item">-->
-<!--          <label for="name">Account name</label>-->
-<!--          <input type="text" id="name" class="form-control" formControlName="name">-->
-<!--        </div>-->
-<!--        <div class="form-item">-->
-<!--          <label for="email">Account Email</label>-->
-<!--          <input type="text" id="email" class="form-control" formControlName="email">-->
-<!--        </div>-->
-<!--        <div class="form-item">-->
-<!--          <label for="password">Password</label>-->
-<!--          <input type="password" id="password" class="form-control" formControlName="password">-->
-<!--        </div>-->
-<!--        <div class="form-item">-->
-<!--          <label for="re-password">Re-enter Password</label>-->
-<!--          <input type="password" id="re-password" class="form-control" formControlName="re_password">-->
-<!--        </div>-->
-<!--        <div class="form-item">-->
-<!--          <label for="phone">Phone</label>-->
-<!--          <input type="text" id="phone" class="form-control" formControlName="phoneNumber">-->
-<!--        </div>-->
-<!--        <div class="button-group">-->
-<!--          <button type="submit" class="btn btn-primary">UPDATE YOUR PROFILE</button>-->
-<!--          <button class="btn btn-danger" (click)="onDeleteAccount()">DELETE YOUR ACCOUNT</button>-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+      <!-- Delete profile form -->
+      <form [formGroup]="deleteProfileForm" (ngSubmit)="onDeleteProfile()" class="delete">
+        <h4>Delete you profile</h4>
+        <p>Delete your profile will remove all of you information in our database. This can not ben undone.</p>
+        <div class="form-actions">
+          <button type="submit" class="button button-danger">Delete profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

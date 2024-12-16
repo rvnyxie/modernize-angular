@@ -50,53 +50,10 @@
       gap: 0.5rem;
       margin-top: 2rem;
 
-      .button {
-        &.button-cancel {
-          @include button-styles(
-              $white,            // Background color
-              $black,            // Text color
-              $black,            // Border color
-              darken($gray-500, 20%), // Hover/focus background color (dark gray)
-              $white,            // Hover/focus text color
-              $primary           // Outline color
-          );
-        }
-
-        &.button-confirm {
-          @include button-styles(
-              $primary,
-              $white,
-              $primary,
-              darken($primary, 15%),
-              $white,
-              $primary
-          );
-        }
-      }
+      @include button-cancel();
+      @include button-confirm();
     }
 
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      input {
-        @include input-style;
-      }
-
-      .field-error {
-        color: red;
-        visibility: hidden;
-        font-size: 0.875rem;
-        height: 1.5rem;
-
-        display: flex;
-        align-items: center;
-
-        .visible {
-          visibility: visible;
-        }
-      }
-    }
+    @include form-field();
   }
 }

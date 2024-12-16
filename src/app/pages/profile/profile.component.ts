@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
-import { ProfileClientService } from "./client/profile-client.service";
-import { AccountInfo } from "../../models/account.model";
+import { ProfileClient } from "./client/profile.client";
+import { ProfileModel } from "./model/profile.model";
 
 @Component({
   selector: 'ord-profile',
@@ -9,37 +9,30 @@ import { AccountInfo } from "../../models/account.model";
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
-  accountInfoForm = this.formBuilder.group({
-    userId: ['', Validators.required],
-    avatarDocumentId: [''],
-    email: ['', [Validators.required, Validators.email]],
-    phoneNumber: [''],
-    name: ['', Validators.required],
-    ngaySinh: [''], // Date of birth
-    gioiTinh: [0], // Gender
-    diaChi: [''], // Address
-    maTinh: [''], // Province code
-    maHuyen: [''], // District code
-    maXa: [''], // CommuneModel code
-    password: ['', Validators.required], // For updating password
-    re_password: ['', Validators.required], // Confirm password
+  profileInfoForm = this.formBuilder.group({
+    // userId: ['', Validators.required],
+    // avatarDocumentId: [''],
+  });
+
+  deleteProfileForm = this.formBuilder.group({
+
   });
 
   constructor(private formBuilder: FormBuilder,
-              private profileClient: ProfileClientService) {
+              private profileClient: ProfileClient) {
   }
 
   ngOnInit() {
-    this.loadAccountInfo();
+    this.loadProfile();
   }
 
   /**
    * Load account info from API
    */
-  loadAccountInfo() {
-    this.profileClient.getAccountInfo().subscribe({
+  loadProfile() {
+    this.profileClient.getProfileInfo().subscribe({
       next: (accountInfo) => {
-        this.accountInfoForm.patchValue(accountInfo);
+        this.profileInfoForm.patchValue(accountInfo);
       },
       error: (err) => {
         console.error('Account Info Error: ', err);
@@ -54,9 +47,9 @@ export class ProfileComponent implements OnInit {
   /**
    * Update account info
    */
-  onUpdateAccount() {
-    if (this.accountInfoForm.valid) {
-      const updatedAccountInfo: AccountInfo = this.mapFormToAccountInfo();
+  onUpdateProfile() {
+    if (this.profileInfoForm.valid) {
+      const updatedAccountInfo: ProfileModel = this.mapFormToAccountInfo();
 
       this.profileClient.updateProfile(updatedAccountInfo);
     } else {
@@ -67,29 +60,17 @@ export class ProfileComponent implements OnInit {
   /**
    * Delete logged in account
    */
-  onDeleteAccount() {
-    this.profileClient.deleteAccount();
+  onDeleteProfile() {
+    this.profileClient.deleteProfile();
   }
 
   /**
    * Map account info from form to AccountInfo
    */
-  mapFormToAccountInfo(): AccountInfo {
-    const formValue = this.accountInfoForm.value;
+  mapFormToAccountInfo(): any {
+    const formValue = this.profileInfoForm.value;
 
-    return {
-      userId: formValue.userId!,
-      avatarDocumentId: formValue.avatarDocumentId!,
-      email: formValue.email!,
-      phoneNumber: formValue.phoneNumber || null,
-      name: formValue.name!,
-      ngaySinh: formValue.ngaySinh!,
-      gioiTinh: formValue.gioiTinh!,
-      diaChi: formValue.diaChi!,
-      maTinh: formValue.maTinh!,
-      maHuyen: formValue.maHuyen!,
-      maXa: formValue.maXa!,
-    };
+
   }
 
 }

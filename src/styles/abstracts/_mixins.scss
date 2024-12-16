@@ -66,3 +66,68 @@
     opacity: 0.6;
   }
 }
+
+@mixin button-cancel() {
+  .button.button-cancel {
+    @include button-styles(
+        $white,            // Background color
+        $black,            // Text color
+        $black,            // Border color
+        darken($gray-500, 20%), // Hover/focus background color (dark gray)
+        $white,            // Hover/focus text color
+        $primary           // Outline color
+    );
+  }
+}
+
+@mixin button-confirm() {
+  .button.button-confirm {
+    @include button-styles(
+        $primary,
+        $white,
+        $primary,
+        darken($primary, 15%),
+        $white,
+        $primary
+    );
+  }
+}
+
+@mixin button-danger() {
+  .button.button-danger {
+    @include button-styles(
+        $white,            // Background color
+        $red,            // Text color
+        $red,            // Border color
+        darken($red, 20%), // Hover/focus background color (dark gray)
+        $white,            // Hover/focus text color
+        $primary           // Outline color
+    )
+  }
+}
+
+@mixin form-field() {
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    input {
+      @include input-style;
+    }
+
+    .field-error {
+      color: red;
+      visibility: hidden;
+      font-size: 0.875rem;
+      height: 1.5rem;
+
+      display: flex;
+      align-items: center;
+
+      .visible {
+        visibility: visible;
+      }
+    }
+  }
+}
