@@ -9,8 +9,8 @@
       <!-- Update profile form -->
       <form [formGroup]="profileInfoForm" (ngSubmit)="onUpdateProfile()" class="update">
         <div class="form-field">
-          <label for="username">Username</label>
-          <input type="text" id="username" class="" formControlName="username">
+          <label for="userName">User Name</label>
+          <input type="text" id="userName" class="" formControlName="userName">
         </div>
         <div class="form-field">
           <label for="email">Email</label>
@@ -20,6 +20,22 @@
           <label for="phone-number">Phone Number</label>
           <input type="text" id="phone-number" class="" formControlName="phoneNumber">
         </div>
+        <div class="form-field">
+          <label for="full-name">Full name</label>
+          <input type="text" id="full-name" class="" formControlName="fullName">
+        </div>
+        <div class="form-field">
+          <label for="date-of-birth">Date of birth</label>
+          <input type="text" id="date-of-birth" class="" formControlName="dateOfBirth">
+        </div>
+        <div class="form-field">
+          <label for="address">Address</label>
+          <input type="text" id="address" class="" formControlName="address">
+        </div>
+        <div class="form-field">
+          <label for="description">Description</label>
+          <input type="text" id="description" class="" formControlName="description">
+        </div>
         <div class="form-actions">
           <button type="button" class="button button-cancel">Cancel</button>
           <button type="submit" class="button button-confirm">Update your profile</button>
@@ -27,7 +43,7 @@
       </form>
 
       <!-- Delete profile form -->
-      <form [formGroup]="deleteProfileForm" (ngSubmit)="onDeleteProfile()" class="delete">
+      <form class="delete" (ngSubmit)="onDeleteProfile()">
         <h4>Delete you profile</h4>
         <p>Delete your profile will remove all of you information in our database. This can not ben undone.</p>
         <div class="form-actions">

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { catchError, map, Observable, throwError } from "rxjs";
+import { map, Observable } from "rxjs";
 import { ProfileModel } from "../model/profile.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileClient {
-  private getApiUrl = "";
+  readonly baseUrl: string = "https://localhost:7003/api";
+
+  private getApiUrl = `${this.baseUrl}/users/me`;
   private updateApiUrl = "";
 
   constructor(private httpClient: HttpClient) { }
@@ -17,36 +19,19 @@ export class ProfileClient {
    */
   getProfileInfo(): Observable<ProfileModel> {
     return this.httpClient.get<any>(this.getApiUrl).pipe(
-      map((response) => {
-        if (!response || !response.userSession) {
-          throw new Error('Invalid API response: userSession is missing');
-        }
-
-        return this.convertToAccountInfo(response.userSession);
-      }),
-      catchError((error) => {
-        console.error('Error fetching account info:', error);
-        return throwError(() => new Error('Failed to fetch account info'));
+      map((response: ProfileModel) => {
+        return response;
       })
     );
   }
 
   /**
-   * Convert account info received from API to AccountInfo type
-   * @param accountReceived Account received from API
+   * Update profile with submitted info
+   * @param updatedProfileInfo Updated profile info
    */
-  convertToAccountInfo(accountReceived: any): any {
-    return {
-    }
-  }
-
-  /**
-   * Update account with submitted info
-   * @param updatedAccountInfo Updated account info
-   */
-  updateProfile(updatedAccountInfo: ProfileModel) {
-    console.log('Updated Account Info:', updatedAccountInfo);
-    const body = JSON.stringify(updatedAccountInfo);
+  updateProfile(updatedProfileInfo: ProfileModel) {
+    console.log('Updated Profile Info:', updatedProfileInfo);
+    const body = JSON.stringify(updatedProfileInfo);
 
     this.httpClient.post(this.updateApiUrl, body).subscribe({
       next: (response) => {
@@ -59,6 +44,9 @@ export class ProfileClient {
     })
   }
 
+  /**
+   * Update profile avatar
+   */
   updateAvatar() {}
 
   /**

@@ -3,7 +3,7 @@
  */
 export interface ProfileModel {
   id: string,
-  username: string,
+  userName: string,
   email: string,
   fullName?: string,
   dateOfBirth?: Date,
