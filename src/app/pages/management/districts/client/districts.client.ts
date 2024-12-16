@@ -6,18 +6,20 @@ import { DistrictCreation } from "../model/district-creation.model";
 import { BaseManagementClient } from "../../base-management/base-management-client/base-management.client";
 import { ProvincesClient } from "../../provinces/client/provinces.client";
 import { catchError, map, Observable, throwError } from "rxjs";
+import { DistrictUpdate } from "../model/district-update.model";
 
 @Injectable({
   providedIn: 'root',
 })
-export class DistrictsClient extends BaseManagementClient<District, DistrictCreation>{
+export class DistrictsClient extends BaseManagementClient<District, DistrictCreation, DistrictUpdate>{
   protected getApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/huyen/get-list';
-  protected createAndUpdateApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/huyen/create-or-update';
+  protected override creationApiUrl: string = "";
+  protected override updateApiUrl: string = "";
   protected deleteApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/huyen/delete-common-result';
 
   constructor(httpClient: HttpClient,
-              authService: AuthService,) {
-    super(httpClient, authService);
+              private authService: AuthService,) {
+    super(httpClient);
   }
 
   /**

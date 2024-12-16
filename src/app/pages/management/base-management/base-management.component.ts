@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseManagementClient } from "./base-management-client/base-management.client";
-import { ColumnInfoUsedForGeneration } from "../columns-config";
-import { GetPaginationBody } from "../../../shared/model/get-pagination-body.model";
+import { ColumnInfoUsedForGeneration } from "../../columns-config";
+import { PaginationFilters } from "../../../shared/model/pagination-filters.model";
+import { EntityModel } from "./model/entity.model";
+import { EntityCreationModel } from "./model/entity-creation.model";
+import { EntityUpdateModel } from "./model/entity-update.model";
 
 @Component({
-  selector: 'ord-base-management',
-  templateUrl: './base-management.component.html',
-  styleUrl: './base-management.component.scss'
+  selector: "ord-base-management",
+  template: ``,
+  styles: ""
 })
-export abstract class BaseManagementComponent<EntityType> implements OnInit {
-  // EntityType: The type used in each base management component
-
+export abstract class BaseManagementComponent<EntityType extends EntityModel, EntityCreationType extends EntityCreationModel, EntityUpdateType extends EntityUpdateModel> implements OnInit {
   abstract defaultControls: EntityType;
   abstract columns: ColumnInfoUsedForGeneration[];
-  abstract dataClient: BaseManagementClient<EntityType, any>;
+  abstract dataClient: BaseManagementClient<EntityModel, EntityCreationModel, EntityUpdateModel>;
 
   data: EntityType[] = [];
   controlsToAddOrEdit!: EntityType;
@@ -47,7 +48,6 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
   }
   totalRecordsCount: number = 0;
 
-
   ngOnInit() {
     this.loadData();
   }
@@ -56,17 +56,14 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
    * Load data
    */
   loadData() {
-    const getPaginationBody: GetPaginationBody = {
-      filter: null,
-      isActive: null,
-      skipCount: this._currentPage,
-      maxResultCount: this._recordsPerPage
+    const paginationFilters: PaginationFilters = {
     }
 
-    this.dataClient.getList(getPaginationBody).subscribe({
+    this.dataClient.getList(paginationFilters).subscribe({
       next: (response: any) => {
-        this.totalRecordsCount = response.totalCount;
-        this.data = response.items;
+        console.log(response);
+        this.data = response;
+        this.totalRecordsCount = this.data.length;
       },
       error: (err: any) => {
         console.log("Failed to load data: ", err);
@@ -117,15 +114,50 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
    * @param formValue Form data
    */
   handleSubmit(formValue: EntityType) {
-    this.dataClient.createOrUpdate(formValue).subscribe({
+    // TODO: handle creating and updating
+    if (this.formType === "add") {
+      this.handleCreationSubmit(formValue);
+    } else if (this.formType === "edit") {
+      this.handleUpdateSubmit(formValue);
+    }
+  }
+
+  /**
+   * Handle form creating submission
+   * @param formValue Form data
+   */
+  handleCreationSubmit(formValue: EntityType) {
+    const creationEntity = this.mapEntityToCreationEntity(formValue);
+
+    this.dataClient.createEntity(creationEntity).subscribe({
       next: (response: any) => {
         this.closeForm();
         this.loadData();
         console.log(response);
-        alert("Successfully create or update entity!");
+        alert("Successfully creating entity!");
       },
       error: (err: any) => {
-        console.error("Failed to create or update entity: ", err);
+        console.error("Failed to create entity: ", err);
+      }
+    })
+  }
+
+  /**
+   * Handle form updating submission
+   * @param formValue Form data
+   */
+  handleUpdateSubmit(formValue: EntityType) {
+    const updateEntity = this.mapEntityToUpdateEntity(formValue);
+
+    this.dataClient.updateEntity(updateEntity).subscribe({
+      next: (response: any) => {
+        this.closeForm();
+        this.loadData();
+        console.log(response);
+        alert("Successfully updating entity!");
+      },
+      error: (err: any) => {
+        console.error("Failed to update entity: ", err);
       }
     })
   }
@@ -150,4 +182,14 @@ export abstract class BaseManagementComponent<EntityType> implements OnInit {
   closeForm() {
     this.isFormVisible = false;
   }
+
+  /**
+   * Map entity to creation entity
+   */
+  protected abstract mapEntityToCreationEntity(entity: EntityType): EntityCreationType;
+
+  /**
+   * Map entity to update entity
+   */
+  protected abstract mapEntityToUpdateEntity(entity: EntityType): EntityUpdateType;
 }

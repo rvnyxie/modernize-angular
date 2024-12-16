@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { columnsConfig } from "../columns-config";
+import { columnsConfig } from "../../columns-config";
 import { CommunesClient } from "./client/communes.client";
 import { Commune } from "./model/commune.model";
 import { BaseManagementComponent } from "../base-management/base-management.component";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { ProvincesClient } from "../provinces/client/provinces.client";
 import { DistrictsClient } from "../districts/client/districts.client";
+import { CommuneCreation } from "./model/commune-creation.model";
+import { CommuneUpdate } from "./model/commune-update.model";
 
 @Component({
   selector: 'ord-communes',
   templateUrl: './communes.component.html',
   styleUrl: './communes.component.scss'
 })
-export class CommunesComponent extends BaseManagementComponent<Commune> implements OnInit {
+export class CommunesComponent extends BaseManagementComponent<Commune, CommuneCreation, CommuneUpdate> implements OnInit {
   readonly defaultControls: Commune = {
     id: 0,
     maTinh: null,
@@ -56,7 +58,7 @@ export class CommunesComponent extends BaseManagementComponent<Commune> implemen
   override ngOnInit() {
     // Get list of provinces when initializing
     this.provinceClient.getAllProvinces().subscribe({
-      next: (provinces) => {
+      next: (provinces: any) => {
         this.provincesForDropdown = provinces;
       }
     })
@@ -65,7 +67,7 @@ export class CommunesComponent extends BaseManagementComponent<Commune> implemen
     this.searchForm.controls.searchProvince.valueChanges.subscribe(provinceId => {
       if (provinceId) {
         this.districtClient.getAllDistrictsByProvinceId(provinceId).subscribe({
-          next: (districts) => {
+          next: (districts: any) => {
             this.districtsForDropdown = districts;
           }
         })
@@ -94,5 +96,12 @@ export class CommunesComponent extends BaseManagementComponent<Commune> implemen
   onSearch() {
     console.log("onSearch");
     console.log(this.searchForm.value);
+  }
+
+  protected override mapEntityToCreationEntity(entity: Commune): CommuneCreation {
+    throw new Error('Method not implemented.');
+  }
+  protected override mapEntityToUpdateEntity(entity: Commune): CommuneUpdate {
+    throw new Error('Method not implemented.');
   }
 }

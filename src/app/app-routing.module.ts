@@ -11,7 +11,6 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'dashboard', loadChildren: () => import("./pages/dashboard/dashboard.module").then(m => m.DashboardModule) },
-      { path: 'products', loadChildren: () => import("./pages/products/products.module").then(m => m.ProductsModule) },
       { path: 'me', loadChildren: () => import("./pages/profile/profile.module").then(m => m.ProfileModule) },
       { path: 'management', loadChildren: () => import("./pages/management/management.module").then(m => m.ManagementModule) },
       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },

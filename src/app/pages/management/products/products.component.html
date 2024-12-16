@@ -1,0 +1,23 @@
+<!-- Product List -->
+<ord-entity-list
+  [entityName]="'Danh sách sản phẩm'"
+  [columns]="columns"
+  [data]="data"
+  [totalRecordsCount]="totalRecordsCount"
+  [(currentPage)]="currentPage"
+  [(recordsPerPage)]="recordsPerPage"
+  (addRow)="addEntity()"
+  (editRow)="editEntity($event)"
+  (deleteRow)="deleteEntity($event)"
+></ord-entity-list>
+
+<!-- Product Action Form -->
+<ord-entity-form
+  *ngIf="isFormVisible"
+  [title]="isFormEditing ? 'Sửa thông tin sản phẩm' : 'Tạo sản phẩm mới'"
+  [formType]="formType"
+  [formControls]="controlsToAddOrEdit"
+  [formFields]="columns"
+  (formSubmit)="handleSubmit($event)"
+  (formCancel)="handleCancel()"
+></ord-entity-form>

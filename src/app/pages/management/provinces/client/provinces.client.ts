@@ -5,18 +5,20 @@ import { Province } from "../model/province.model";
 import { ProvinceCreation } from "../model/province-creation.model";
 import { BaseManagementClient } from "../../base-management/base-management-client/base-management.client";
 import { catchError, map, throwError } from "rxjs";
+import { ProductUpdate } from "../../products/model/product-update.model";
 
 @Injectable({
   providedIn: "root"
 })
-export class ProvincesClient extends BaseManagementClient<Province, ProvinceCreation>{
+export class ProvincesClient extends BaseManagementClient<Province, ProvinceCreation, ProductUpdate>{
   protected getApiUrl = "http://test.nghiencuukhoahoc.com.vn/api/master-data/tinh/get-list";
-  protected createAndUpdateApiUrl = "http://test.nghiencuukhoahoc.com.vn/api/master-data/tinh/create-or-update";
+  protected creationApiUrl = "";
+  protected updateApiUrl = "";
   protected deleteApiUrl = "http://test.nghiencuukhoahoc.com.vn/api/master-data/tinh/delete-common-result";
 
   constructor(httpClient: HttpClient,
-              authService: AuthService) {
-    super(httpClient, authService);
+              private authService: AuthService) {
+    super(httpClient);
   }
 
   /**

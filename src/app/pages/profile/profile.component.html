@@ -1,54 +1,54 @@
-<!-- Profile -->
-<div class="profile-container">
-  <!-- Account List -->
-  <div class="account-list">
-    <h3>List of Accounts</h3>
-    <p>Accounts</p>
-    <select name="accounts" id="account">
-      <option value="Account 1">Account 1</option>
-      <option value="Account 2">Account 2</option>
-    </select>
-  </div>
+<!--&lt;!&ndash; Profile &ndash;&gt;-->
+<!--<div class="profile-container">-->
+<!--  &lt;!&ndash; Account List &ndash;&gt;-->
+<!--  <div class="account-list">-->
+<!--    <h3>List of Accounts</h3>-->
+<!--    <p>Accounts</p>-->
+<!--    <select name="accounts" id="account">-->
+<!--      <option value="Account 1">Account 1</option>-->
+<!--      <option value="Account 2">Account 2</option>-->
+<!--    </select>-->
+<!--  </div>-->
 
-  <!-- Account -->
-  <div class="account">
-    <!-- Avatar -->
-    <div class="account-avatar">
-      <h3>Change Avatar</h3>
-      <img src="" alt="Account avatar">
-      <input type="file" name="" id="">
-<!--      <button class="btn btn-danger" (click)="onUpdateAvatar()">UPLOAD NEW PHOTO</button>-->
-    </div>
+<!--  &lt;!&ndash; Account &ndash;&gt;-->
+<!--  <div class="account">-->
+<!--    &lt;!&ndash; Avatar &ndash;&gt;-->
+<!--    <div class="account-avatar">-->
+<!--      <h3>Change Avatar</h3>-->
+<!--      <img src="" alt="Account avatar">-->
+<!--      <input type="file" name="" id="">-->
+<!--&lt;!&ndash;      <button class="btn btn-danger" (click)="onUpdateAvatar()">UPLOAD NEW PHOTO</button>&ndash;&gt;-->
+<!--    </div>-->
 
-    <!-- Account Setting -->
-    <div class="account-setting">
-      <h3>Account Setting</h3>
-      <form [formGroup]="accountInfoForm" (ngSubmit)="onUpdateAccount()">
-        <div class="form-item">
-          <label for="name">Account name</label>
-          <input type="text" id="name" class="form-control" formControlName="name">
-        </div>
-        <div class="form-item">
-          <label for="email">Account Email</label>
-          <input type="text" id="email" class="form-control" formControlName="email">
-        </div>
-        <div class="form-item">
-          <label for="password">Password</label>
-          <input type="password" id="password" class="form-control" formControlName="password">
-        </div>
-        <div class="form-item">
-          <label for="re-password">Re-enter Password</label>
-          <input type="password" id="re-password" class="form-control" formControlName="re_password">
-        </div>
-        <div class="form-item">
-          <label for="phone">Phone</label>
-          <input type="text" id="phone" class="form-control" formControlName="phoneNumber">
-        </div>
-        <div class="button-group">
-          <button type="submit" class="btn btn-primary">UPDATE YOUR PROFILE</button>
-          <button class="btn btn-danger" (click)="onDeleteAccount()">DELETE YOUR ACCOUNT</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+<!--    &lt;!&ndash; Account Setting &ndash;&gt;-->
+<!--    <div class="account-setting">-->
+<!--      <h3>Account Setting</h3>-->
+<!--      <form [formGroup]="accountInfoForm" (ngSubmit)="onUpdateAccount()">-->
+<!--        <div class="form-item">-->
+<!--          <label for="name">Account name</label>-->
+<!--          <input type="text" id="name" class="form-control" formControlName="name">-->
+<!--        </div>-->
+<!--        <div class="form-item">-->
+<!--          <label for="email">Account Email</label>-->
+<!--          <input type="text" id="email" class="form-control" formControlName="email">-->
+<!--        </div>-->
+<!--        <div class="form-item">-->
+<!--          <label for="password">Password</label>-->
+<!--          <input type="password" id="password" class="form-control" formControlName="password">-->
+<!--        </div>-->
+<!--        <div class="form-item">-->
+<!--          <label for="re-password">Re-enter Password</label>-->
+<!--          <input type="password" id="re-password" class="form-control" formControlName="re_password">-->
+<!--        </div>-->
+<!--        <div class="form-item">-->
+<!--          <label for="phone">Phone</label>-->
+<!--          <input type="text" id="phone" class="form-control" formControlName="phoneNumber">-->
+<!--        </div>-->
+<!--        <div class="button-group">-->
+<!--          <button type="submit" class="btn btn-primary">UPDATE YOUR PROFILE</button>-->
+<!--          <button class="btn btn-danger" (click)="onDeleteAccount()">DELETE YOUR ACCOUNT</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

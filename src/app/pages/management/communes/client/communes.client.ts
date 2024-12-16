@@ -5,20 +5,22 @@ import { catchError, map, Observable, throwError } from "rxjs";
 import { AuthService } from "../../../../auth/auth.service";
 import { CommuneCreation } from "../model/commune-creation.model";
 import { BaseManagementClient } from "../../base-management/base-management-client/base-management.client";
+import { CommuneUpdate } from "../model/commune-update.model";
 
 @Injectable({
   providedIn: 'root',
 })
-export class CommunesClient extends BaseManagementClient<Commune, CommuneCreation>{
+export class CommunesClient extends BaseManagementClient<Commune, CommuneCreation, CommuneUpdate>{
   protected getApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/get-list';
-  protected createAndUpdateApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/create-or-update';
+  protected creationApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/create-or-update';
+  protected updateApiUrl = '';
   protected deleteApiUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/xa/delete-common-result';
 
   accessToken = this.authService.getAccessToken();
 
   constructor(httpClient: HttpClient,
-              authService: AuthService,) {
-    super(httpClient, authService);
+              private authService: AuthService,) {
+    super(httpClient);
   }
 
   /**

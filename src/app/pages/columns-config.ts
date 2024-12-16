@@ -55,6 +55,13 @@ export const columnsConfig: Record<string, ColumnInfoUsedForGeneration[]> = {
         { label: "Không", value: false }
       ] },
   ],
+  product: [
+    { name: "id", header: "Product ID", type: "text", required: true, errorMessage: "Needed", isAddable: false, isEditable: false },
+    { name: "name", header: "Name", type: "text", required: true, errorMessage: "Needed", isAddable: true, isEditable: true },
+    { name: "price", header: "Price", type: "text", required: true, errorMessage: "Needed", isAddable: true, isEditable: true },
+    { name: "quantity", header: "Quantity", type: "text", required: true, errorMessage: "Needed", isAddable: true, isEditable: true },
+    { name: "groupId", header: "Product's group", type: "text", required: false, errorMessage: "Needed", isAddable: false, isEditable: false },
+  ]
 };
 
 export interface ColumnInfoUsedForGeneration {

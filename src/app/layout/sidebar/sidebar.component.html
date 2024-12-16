@@ -34,14 +34,6 @@
           <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
           <span class="hide-menu">PAGES</span>
         </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" routerLink="/products" routerLinkActive="active" aria-expanded="false">
-            <span>
-              <i class="ti ti-article"></i>
-            </span>
-            <span class="hide-menu">Products</span>
-          </a>
-        </li>
 
         <!-- Management Section -->
         <li class="sidebar-item has-children">
@@ -60,6 +52,16 @@
 
           <!-- Management Submenu -->
           <ul class="submenu">
+            <!-- Product -->
+            <li class="sidebar-item">
+              <a class="sidebar-link" routerLink="/management/products" routerLinkActive="active">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                <span class="hide-menu">Product</span>
+              </a>
+            </li>
+
             <!-- Province -->
             <li class="sidebar-item">
               <a class="sidebar-link" routerLink="/management/provinces" routerLinkActive="active">

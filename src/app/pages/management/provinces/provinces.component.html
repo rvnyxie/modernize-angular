@@ -1,56 +1,56 @@
-<ord-entity-list
-  [entityName]="'Danh sách tỉnh'"
-  [columns]="columns"
-  [data]="data"
-  [totalRecordsCount]="totalRecordsCount"
-  [(currentPage)]="currentPage"
-  [(recordsPerPage)]="recordsPerPage"
-  (addRow)="addEntity()"
-  (editRow)="editEntity($event)"
-  (deleteRow)="deleteEntity($event)"
->
-  <!-- Province Search Form -->
-  <div searchForm>
-    <form [formGroup]="provinceSearchForm" (ngSubmit)="onSearch()">
-      <!-- Search Inputs -->
-      <div class="input-container">
-        <div class="input-wrapper">
-          <label for="searchInput">Từ khóa tìm kiếm</label>
-          <input
-            id="searchInput"
-            type="text"
-            [formControl]="provinceSearchForm.controls.searchInput"
-            placeholder="Nhập mã, tên để tìm kiếm"
-          >
-        </div>
-        <ord-dropdown
-          placeholder="Chọn tỉnh, thành phố"
-          [label]="{ id: 'provinceDropdown', name: 'Chọn tỉnh, thành phố' }"
-          [items]="provincesForDropdown"
-          [formControl]="provinceSearchForm.controls.searchProvince"
-        ></ord-dropdown>
-      </div>
+<!--<ord-entity-list-->
+<!--  [entityName]="'Danh sách tỉnh'"-->
+<!--  [columns]="columns"-->
+<!--  [data]="data"-->
+<!--  [totalRecordsCount]="totalRecordsCount"-->
+<!--  [(currentPage)]="currentPage"-->
+<!--  [(recordsPerPage)]="recordsPerPage"-->
+<!--  (addRow)="addEntity()"-->
+<!--  (editRow)="editEntity($event)"-->
+<!--  (deleteRow)="deleteEntity($event)"-->
+<!--&gt;-->
+<!--  &lt;!&ndash; Province Search Form &ndash;&gt;-->
+<!--  <div searchForm>-->
+<!--    <form [formGroup]="provinceSearchForm" (ngSubmit)="onSearch()">-->
+<!--      &lt;!&ndash; Search Inputs &ndash;&gt;-->
+<!--      <div class="input-container">-->
+<!--        <div class="input-wrapper">-->
+<!--          <label for="searchInput">Từ khóa tìm kiếm</label>-->
+<!--          <input-->
+<!--            id="searchInput"-->
+<!--            type="text"-->
+<!--            [formControl]="provinceSearchForm.controls.searchInput"-->
+<!--            placeholder="Nhập mã, tên để tìm kiếm"-->
+<!--          >-->
+<!--        </div>-->
+<!--        <ord-dropdown-->
+<!--          placeholder="Chọn tỉnh, thành phố"-->
+<!--          [label]="{ id: 'provinceDropdown', name: 'Chọn tỉnh, thành phố' }"-->
+<!--          [items]="provincesForDropdown"-->
+<!--          [formControl]="provinceSearchForm.controls.searchProvince"-->
+<!--        ></ord-dropdown>-->
+<!--      </div>-->
 
-      <!-- Search Buttons -->
-      <div class="button-group">
-        <button type="button" class="button button-reset" (click)="onResetSearch()">
-          <span><i class="ti ti-reload"></i></span>
-          <span>Đặt lại</span>
-        </button>
-        <button type="submit" class="button button-search">
-          <span><i class="ti ti-search"></i></span>
-          <span>Tìm kiếm</span>
-        </button>
-      </div>
-    </form>
-  </div>
-</ord-entity-list>
-<ord-entity-form
-  *ngIf="isFormVisible"
-  [title]="isFormEditing ? 'Sửa thông tin tỉnh' : 'Tạo tỉnh mới'"
-  [formType]="formType"
-  [formControls]="controlsToAddOrEdit"
-  [formFields]="columns"
-  (formSubmit)="handleSubmit($event)"
-  (formCancel)="handleCancel()"
-></ord-entity-form>
+<!--      &lt;!&ndash; Search Buttons &ndash;&gt;-->
+<!--      <div class="button-group">-->
+<!--        <button type="button" class="button button-reset" (click)="onResetSearch()">-->
+<!--          <span><i class="ti ti-reload"></i></span>-->
+<!--          <span>Đặt lại</span>-->
+<!--        </button>-->
+<!--        <button type="submit" class="button button-search">-->
+<!--          <span><i class="ti ti-search"></i></span>-->
+<!--          <span>Tìm kiếm</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</ord-entity-list>-->
+<!--<ord-entity-form-->
+<!--  *ngIf="isFormVisible"-->
+<!--  [title]="isFormEditing ? 'Sửa thông tin tỉnh' : 'Tạo tỉnh mới'"-->
+<!--  [formType]="formType"-->
+<!--  [formControls]="controlsToAddOrEdit"-->
+<!--  [formFields]="columns"-->
+<!--  (formSubmit)="handleSubmit($event)"-->
+<!--  (formCancel)="handleCancel()"-->
+<!--&gt;</ord-entity-form>-->

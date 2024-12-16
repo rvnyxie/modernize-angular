@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { columnsConfig } from "../columns-config";
+import { columnsConfig } from "../../columns-config";
 import { ProvincesClient } from "./client/provinces.client";
 import { Province } from "./model/province.model";
 import { BaseManagementComponent } from "../base-management/base-management.component";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { ProvinceCreation } from "./model/province-creation.model";
+import { ProductUpdate } from "../products/model/product-update.model";
 
 @Component({
   selector: 'ord-provinces',
   templateUrl: './provinces.component.html',
   styleUrl: './provinces.component.scss'
 })
-export class ProvincesComponent extends BaseManagementComponent<Province> implements OnInit {
+export class ProvincesComponent extends BaseManagementComponent<Province, ProvinceCreation, ProductUpdate> implements OnInit {
   readonly defaultControls: Province = {
     id: 0,
     maTinh: null,
@@ -59,5 +61,12 @@ export class ProvincesComponent extends BaseManagementComponent<Province> implem
   onSearch() {
     console.log("onSearch");
     console.log(this.provinceSearchForm.value);
+  }
+
+  protected override mapEntityToCreationEntity(entity: Province): ProvinceCreation {
+    throw new Error('Method not implemented.');
+  }
+  protected override mapEntityToUpdateEntity(entity: Province): ProductUpdate {
+    throw new Error('Method not implemented.');
   }
 }

@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { columnsConfig } from "../columns-config";
+import { columnsConfig } from "../../columns-config";
 import { DistrictsClient } from "./client/districts.client";
 import { District } from "./model/district.model";
 import { BaseManagementComponent } from "../base-management/base-management.component";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { ProvincesClient } from "../provinces/client/provinces.client";
+import { DistrictCreation } from "./model/district-creation.model";
+import { DistrictUpdate } from "./model/district-update.model";
 
 @Component({
   selector: 'ord-districts',
   templateUrl: './districts.component.html',
   styleUrl: './districts.component.scss'
 })
-export class DistrictsComponent extends BaseManagementComponent<District> implements OnInit {
+export class DistrictsComponent extends BaseManagementComponent<District, DistrictCreation, DistrictUpdate> implements OnInit {
   readonly defaultControls: District = {
     id: 0,
     maTinh: null,
@@ -46,7 +48,7 @@ export class DistrictsComponent extends BaseManagementComponent<District> implem
   override ngOnInit() {
     // Get list of provinces when initializing
     this.provinceClient.getAllProvinces().subscribe({
-      next: (provinces) => {
+      next: (provinces: any) => {
         this.provincesForDropdown = provinces;
       }
     })
@@ -55,7 +57,7 @@ export class DistrictsComponent extends BaseManagementComponent<District> implem
     this.searchForm.controls.searchProvince.valueChanges.subscribe(provinceId => {
       if (provinceId) {
         this.districtClient.getAllDistrictsByProvinceId(provinceId).subscribe({
-          next: (districts) => {
+          next: (districts: any) => {
             this.districtsForDropdown = districts;
           }
         })
@@ -73,5 +75,12 @@ export class DistrictsComponent extends BaseManagementComponent<District> implem
   onSearch() {
     console.log("onSearch");
     console.log(this.searchForm.value);
+  }
+
+  protected override mapEntityToCreationEntity(entity: District): DistrictCreation {
+    throw new Error('Method not implemented.');
+  }
+  protected override mapEntityToUpdateEntity(entity: District): DistrictUpdate {
+    throw new Error('Method not implemented.');
   }
 }

@@ -1,62 +1,50 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { AuthService } from "../../../../auth/auth.service";
-import { GetPaginationBody } from "../../../../shared/model/get-pagination-body.model";
+import { EntityModel } from "../model/entity.model";
+import { EntityCreationModel } from "../model/entity-creation.model";
+import { EntityUpdateModel } from "../model/entity-update.model";
+import { PaginationFilters } from "../../../../shared/model/pagination-filters.model";
 
 @Injectable()
-export abstract class BaseManagementClient<EntityType, CreationOrUpdateType> {
-  // EntityType: The type used in each base management component
-  // CreationOrUpdateType: The type used for creation or update payloads
-
+export abstract class BaseManagementClient<EntityType extends EntityModel, EntityCreationType extends EntityCreationModel, EntityUpdateType extends EntityUpdateModel> {
   protected abstract getApiUrl: string;
-  protected abstract createAndUpdateApiUrl: string;
+  protected abstract creationApiUrl: string;
+  protected abstract updateApiUrl: string;
   protected abstract deleteApiUrl: string;
 
-  protected constructor(protected httpClient: HttpClient,
-                        protected authService: AuthService) {
+  protected constructor(protected httpClient: HttpClient) {
   }
 
   /**
-   * Get list with filter
+   * Get list of entities with filter
    */
-  public getList(body: GetPaginationBody) {
-    return this.httpClient.post(this.getApiUrl, body, {
-      headers: this.getHeaders(),
-    });
+  public getList(paginationFilters: PaginationFilters) {
+    // TODO: set pagination to url
+    return this.httpClient.get(this.getApiUrl);
   }
 
   /**
-   * Create or update an entity
+   * Create entity
+   * @param creationEntity Creation entity
    */
-  public createOrUpdate(entity: EntityType) {
-    const body = this.mapToCreationOrUpdate(entity);
-    return this.httpClient.post(this.createAndUpdateApiUrl, body, {
-      headers: this.getHeaders(),
-    });
+  public createEntity(creationEntity: EntityCreationType) {
+    return this.httpClient.post(this.creationApiUrl, creationEntity);
+  }
+
+  /**
+   * Update entity
+   * @param updateEntity Update entity
+   */
+  public updateEntity(updateEntity: EntityUpdateType) {
+    const updateApiUrlWithId = `${this.updateApiUrl}/${updateEntity.id}`;
+    return this.httpClient.put(updateApiUrlWithId, updateEntity);
   }
 
   /**
    * Delete entity by id
    */
   public deleteById(id: number) {
-    const url = `${this.deleteApiUrl}/${id}`;
-    return this.httpClient.post(url, {}, {
-      headers: this.getHeaders(),
-    });
-  }
-
-  /**
-   * Map entity to creation/update format
-   */
-  protected abstract mapToCreationOrUpdate(entity: EntityType): CreationOrUpdateType;
-
-  /**
-   * Get common headers
-   */
-  private getHeaders() {
-    return {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${this.authService.getAccessToken()}`,
-    };
+    const deleteApiUrlWithId = `${this.deleteApiUrl}/${id}`;
+    return this.httpClient.delete(deleteApiUrlWithId);
   }
 }
