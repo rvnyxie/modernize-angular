@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ProfileClient } from "./client/profile.client";
+import { ProfileModel } from "./model/profile.model";
 
 @Component({
   selector: 'ord-profile',
@@ -9,9 +10,9 @@ import { ProfileClient } from "./client/profile.client";
 })
 export class ProfileComponent implements OnInit {
   profileInfoForm: FormGroup = this.formBuilder.group({
-    id: new FormControl(),
-    userName: new FormControl(),
-    email: new FormControl(),
+    id: new FormControl(["", Validators.required]),
+    userName: new FormControl(["", Validators.required]),
+    email: new FormControl(["", Validators.required]),
     fullName: new FormControl(),
     dateOfBirth: new FormControl(),
     address: new FormControl(),
@@ -33,7 +34,7 @@ export class ProfileComponent implements OnInit {
    */
   loadProfile() {
     this.profileClient.getProfileInfo().subscribe({
-      next: (profileInfo) => {
+      next: (profileInfo: ProfileModel) => {
         this.profileInfoForm.patchValue(profileInfo);
       },
       error: (err) => {
@@ -54,7 +55,15 @@ export class ProfileComponent implements OnInit {
    */
   onUpdateProfile() {
     if (this.profileInfoForm.valid) {
-      this.profileClient.updateProfile(this.profileInfoForm.value);
+      this.profileClient.updateProfile(this.profileInfoForm.value).subscribe({
+        next: (response) => {
+          alert("Profile Updated Successfully!");
+          console.log('Profile updated successfully', response);
+        },
+        error: (err) => {
+          console.error('Profile updated error: ', err);
+        }
+      });
     } else {
       console.warn('Form is not valid');
     }

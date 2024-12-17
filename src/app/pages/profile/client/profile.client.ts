@@ -10,7 +10,7 @@ export class ProfileClient {
   readonly baseUrl: string = "https://localhost:7003/api";
 
   private getApiUrl = `${this.baseUrl}/users/me`;
-  private updateApiUrl = "";
+  private updateApiUrl = `${this.baseUrl}/users/me`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -30,18 +30,9 @@ export class ProfileClient {
    * @param updatedProfileInfo Updated profile info
    */
   updateProfile(updatedProfileInfo: ProfileModel) {
-    console.log('Updated Profile Info:', updatedProfileInfo);
     const body = JSON.stringify(updatedProfileInfo);
 
-    this.httpClient.post(this.updateApiUrl, body).subscribe({
-      next: (response) => {
-        console.log('Profile updated successfully', response);
-      },
-      error: (err) => {
-        alert('Profile updated failed with error: ' + err);
-        console.error(err);
-      }
-    })
+    return this.httpClient.post(this.updateApiUrl, body);
   }
 
   /**
