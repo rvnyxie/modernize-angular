@@ -11,6 +11,7 @@ export class ProfileClient {
 
   private getApiUrl = `${this.baseUrl}/users/me`;
   private updateApiUrl = `${this.baseUrl}/users/me`;
+  private deleteApiUrl = `${this.baseUrl}/users/me`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -43,7 +44,9 @@ export class ProfileClient {
   /**
    * Delete logged in account
    */
-  deleteProfile() {
-    alert('Not supported yet')
+  deleteProfile(id: string) {
+    const deleteApiUrlWithId = `${this.deleteApiUrl}/${id}`;
+
+    return this.httpClient.delete(deleteApiUrlWithId);
   }
 }

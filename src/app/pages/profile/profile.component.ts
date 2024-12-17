@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ProfileClient } from "./client/profile.client";
 import { ProfileModel } from "./model/profile.model";
+import { Router } from "@angular/router";
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
   selector: 'ord-profile',
@@ -22,7 +24,9 @@ export class ProfileComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder,
-              private profileClient: ProfileClient) {
+              private profileClient: ProfileClient,
+              private router: Router,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -73,7 +77,16 @@ export class ProfileComponent implements OnInit {
    * Delete logged in account
    */
   onDeleteProfile() {
-    // this.profileClient.deleteProfile();
-    console.log("Deleted");
+    this.profileClient.deleteProfile(this.profileInfoForm.value.id).subscribe({
+      next: (response) => {
+        alert("Profile Deleted Successfully!");
+        console.log('Profile deleted successfully', response);
+        this.authService.clearAccessToken();
+        this.router.navigate(['/login']).then();
+      },
+      error: (err) => {
+        console.error('Profile deleted error: ', err);
+      }
+    });
   }
 }
