@@ -64,6 +64,7 @@
 
   &.disabled {
     opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
@@ -112,8 +113,13 @@
     flex-direction: column;
     justify-content: space-between;
 
+    label {
+      margin-bottom: 0.25rem;
+    }
+
     input {
       @include input-style;
+      margin-bottom: 0.25rem;
     }
 
     .field-error {
@@ -126,6 +132,13 @@
       align-items: center;
 
       .visible {
+        visibility: visible;
+      }
+
+      span {
+        color: red;
+        font-size: 0.875rem;
+        height: 1.5rem;
         visibility: visible;
       }
     }

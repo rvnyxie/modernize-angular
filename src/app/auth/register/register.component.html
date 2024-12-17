@@ -1,0 +1,80 @@
+<div class="register-container">
+  <h2>Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="register">
+    <!-- User Name -->
+    <div class="form-field">
+      <label for="userName">User Name</label>
+      <input type="text" id="userName" formControlName="userName" />
+      <div class="field-error" *ngIf="hasError('userName', 'required')">
+        <span>User Name is required</span>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" />
+      <div class="field-error" *ngIf="hasError('email', 'required')">
+        <span>Email is required</span>
+      </div>
+      <div class="field-error" *ngIf="hasError('email', 'pattern')">
+        <span>Enter a valid email address</span>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-field">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" />
+      <div class="field-error" *ngIf="hasError('password', 'required')">
+        <span>Password is required</span>
+      </div>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-field">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="text" id="phoneNumber" formControlName="phoneNumber" />
+      <div class="field-error" *ngIf="hasError('phoneNumber', 'required')">
+        <span>Phone Number is required</span>
+      </div>
+      <div class="field-error" *ngIf="hasError('phoneNumber', 'pattern')">
+        <span>Enter a valid phone number</span>
+      </div>
+    </div>
+
+    <!-- Full Name -->
+    <div class="form-field">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" formControlName="fullName" />
+      <div class="field-error" *ngIf="hasError('fullName', 'required')">
+        <span>Full Name is required</span>
+      </div>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="form-field">
+      <label for="dateOfBirth">Date of Birth</label>
+      <input type="date" id="dateOfBirth" formControlName="dateOfBirth" />
+    </div>
+
+    <!-- Address -->
+    <div class="form-field">
+      <label for="address">Address</label>
+      <input type="text" id="address" formControlName="address" />
+    </div>
+
+    <!-- Description -->
+    <div class="form-field">
+      <label for="description">Description</label>
+      <input type="text" id="description" formControlName="description" />
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="submit" class="button button-confirm" [disabled]="registerForm.invalid" [class.disabled]="registerForm.invalid">
+        Register
+      </button>
+    </div>
+  </form>
+</div>

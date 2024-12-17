@@ -1,0 +1,29 @@
+@import "styles/abstracts/mixins";
+
+.register-container {
+  margin: 0 auto;
+  padding: 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  h2 {}
+
+  form.register {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    @include form-field();
+
+    .form-actions {
+      @include button-confirm();
+      margin-top: 0.5rem;
+    }
+
+    .field-error {
+      visibility: visible;
+    }
+  }
+
+}
